@@ -1,0 +1,2716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>JOMZ SHOP - Admin Dashboard</title>
+
+<style>
+
+/* ==========================================
+   JOMZ SHOP ADMIN DASHBOARD
+   ORANGE THEME
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header {
+    background: #151515;
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+header h1 {
+    margin: 0;
+    color: #ff9800;
+}
+
+header p {
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+#logoutBtn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4444;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: #191919;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #292929;
+}
+
+.stat p {
+    color: #aaa;
+}
+
+.stat h2 {
+    margin: 5px 0;
+    color: #ff9800;
+}
+
+/* ==========================================
+   CONTROLS
+========================================== */
+
+.controls {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+#search {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    outline: none;
+}
+
+#search:focus {
+    border-color: #ff9800;
+}
+
+.refresh {
+    padding: 13px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #ff9800;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ==========================================
+   MESSAGE CUSTOMER BUTTON
+========================================== */
+
+.message-btn {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 9px;
+    background: #ff9800;
+    color: #111;
+    font-weight: 900;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.message-btn:hover {
+    transform: scale(1.01);
+}
+
+/* ==========================================
+   FILTERS
+========================================== */
+
+.filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.filter {
+    width: 100%;
+    padding: 9px 6px;
+    border: 1px solid #333;
+    border-radius: 7px;
+    background: #1c1c1c;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+.filter.active {
+    background: #ff9800;
+    color: #111;
+    border-color: #ff9800;
+}
+
+/* ==========================================
+/* ==========================================
+   ORDER CARD
+========================================== */
+
+.order {
+    background: #191919;
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+.order h3 {
+    margin-top: 0;
+    color: #ff9800;
+}
+
+.order p {
+    margin: 8px 0;
+}
+
+/* ==========================================
+   PAYMENT COLORS
+========================================== */
+
+.payment-awaiting {
+    color: #ffd000;
+    font-weight: bold;
+}
+
+.payment-paid {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.payment-not-received {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+/* ==========================================
+   ORDER STATUS
+========================================== */
+
+.status-pending {
+    color: #ffd000;
+    font-weight: bold;
+}
+
+.status-completed {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+button.action {
+    padding: 6px 9px;
+    margin-top: 12px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.confirm {
+    background: #00ff88;
+    color: black;
+}
+
+.complete {
+    background: #008cff;
+    color: white;
+}
+
+.not-received {
+    background: #ff4444;
+    color: white;
+}
+
+.delete {
+    background: #444;
+    color: white;
+}
+
+.receipt {
+    background: #9b59b6;
+    color: white;
+}
+
+/* ==========================================
+   EMPTY MESSAGE
+========================================== */
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+}
+
+/* ==========================================
+   NEW ORDER POPUP
+========================================== */
+
+.jomz-admin-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.jomz-admin-popup-box {
+    width: 100%;
+    max-width: 380px;
+    background: #151515;
+    border: 2px solid #ff9800;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    box-shadow:
+        0 0 15px rgba(255, 152, 0, 0.5),
+        0 0 40px rgba(255, 152, 0, 0.2);
+    animation: jomzPopupIn 0.35s ease;
+}
+
+.jomz-admin-popup-box h2 {
+    margin-top: 0;
+    color: #ff9800;
+    font-size: 24px;
+}
+
+.jomz-admin-popup-box p {
+    color: white;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.jomz-admin-popup-box button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #ff9800;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+@keyframes jomzPopupIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+/* ==========================================
+   CUSTOMER MESSAGE MODAL
+========================================== */
+
+.customer-message-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 99999;
+}
+
+.customer-message-box {
+    width: 100%;
+    max-width: 430px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #151515;
+    border: 2px solid #ff9800;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow:
+        0 0 25px rgba(255, 152, 0, 0.3);
+}
+
+.customer-message-box h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #ff9800;
+}
+
+.customer-message-box label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: #ddd;
+}
+
+.customer-message-box input,
+.customer-message-box textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    outline: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.customer-message-box input:focus,
+.customer-message-box textarea:focus {
+    border-color: #ff9800;
+}
+
+.customer-message-box textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.message-box-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.message-box-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.send-message-btn {
+    background: #ff9800;
+    color: #111;
+}
+
+.close-message-btn {
+    background: #333;
+    color: white;
+}
+
+.history-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid #ff9800;
+    border-radius: 8px;
+    background: #111;
+    color: #ff9800;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.history-btn:hover {
+    background: #ff9800;
+    color: #111;
+}
+
+/* ==========================================
+   MESSAGE HISTORY
+========================================== */
+
+.customer-message-box hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 25px 0;
+}
+
+.customer-message-box h3 {
+    color: #ff9800;
+    font-size: 17px;
+}
+
+#customerMessageHistory {
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.message-history-item {
+    background: #202020;
+    border-left: 3px solid #ff9800;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.message-history-item strong {
+    color: #ff9800;
+}
+
+.message-history-item p {
+    margin: 7px 0;
+    color: #eee;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.message-history-item small {
+    color: #888;
+}
+
+.message-history-empty {
+    color: #888;
+    text-align: center;
+    padding: 15px;
+}
+
+.message-send-result {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .refresh {
+        width: 100%;
+    }
+    button.action {
+        width: auto;
+        padding: 7px 10px;
+        margin-top: 8px;
+        margin-right: 5px;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+    }
+
+    .filter {
+        width: 100%;
+    }
+    .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+        margin-right: 0;
+    }
+
+    .message-box-buttons {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+
+/* ==========================================
+   ADMIN LOGIN CHECK
+========================================== */
+
+fetch("/api/admin-status")
+
+.then(response => response.json())
+
+.then(data => {
+
+    if (!data.loggedIn) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+})
+
+.catch(() => {
+
+    window.location.href =
+        "login.html";
+
+});
+
+
+/* ==========================================
+   ADMIN LOGOUT
+========================================== */
+
+function logoutAdmin() {
+
+    fetch("/api/logout", {
+        method: "POST"
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.success) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    });
+
+}
+
+</script>
+
+<header>
+
+    <h1>JOMZ SHOP</h1>
+
+    <p>Admin Dashboard</p>
+
+    <button
+        onclick="logoutAdmin()"
+        id="logoutBtn"
+    >
+        LOG OUT
+    </button>
+
+</header>
+
+<div class="container">
+
+    <!-- =====================================
+         STATISTICS
+    ====================================== -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <p>🛒 Total Orders</p>
+            <h2 id="totalOrders">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>⏳ Pending Orders</p>
+            <h2 id="pendingOrders">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>💰 Paid Orders</p>
+            <h2 id="paidOrders">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>✅ Completed</p>
+            <h2 id="completedOrders">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>💰 Total Revenue</p>
+            <h2 id="totalRevenue">₦0</h2>
+        </div>
+
+        <div class="stat">
+            <p>💵 Completed Revenue</p>
+            <h2 id="completedRevenue">₦0</h2>
+        </div>
+
+        <div class="stat">
+            <p>📅 Today's Revenue</p>
+            <h2 id="todayRevenue">₦0</h2>
+        </div>
+
+        <div class="stat">
+            <p>📊 Today's Orders</p>
+            <h2 id="todayOrders">0</h2>
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         SEARCH + REFRESH
+    ====================================== -->
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search Player ID, Order ID or Package..."
+            oninput="displayOrders()"
+        >
+
+        <button
+            class="refresh"
+            onclick="loadOrders()"
+        >
+            🔄 REFRESH
+        </button>
+
+    </div>
+
+    <!-- =====================================
+         MESSAGE CUSTOMER
+    ====================================== -->
+
+    <button
+        class="message-btn"
+        onclick="openCustomerMessageBox()"
+    >
+        💬 MESSAGE CUSTOMER
+    </button>
+
+    <!-- =====================================
+         FILTERS
+    ====================================== -->
+
+    <div class="filters">
+
+        <button
+            class="filter active"
+            onclick="setFilter('All', this)"
+        >
+            ALL
+        </button>
+
+        <button
+            class="filter"
+            onclick="setFilter('Pending', this)"
+        >
+            🟡 PENDING
+        </button>
+
+        <button
+            class="filter"
+            onclick="setFilter('Awaiting Confirmation', this)"
+        >
+            💳 PAYMENT WAITING
+        </button>
+
+        <button
+            class="filter"
+            onclick="setFilter('Paid', this)"
+        >
+            💰 PAID
+        </button>
+
+        <button
+            class="filter"
+            onclick="setFilter('Completed', this)"
+        >
+            ✅ COMPLETED
+        </button>
+
+        <button
+            class="filter"
+            onclick="setFilter('Payment Not Received', this)"
+        >
+            ❌ PAYMENT NOT COMPLETED
+        </button>
+
+    </div>
+
+    <!-- =====================================
+         ORDERS
+    ====================================== -->
+
+    <div id="orders">
+
+        <div class="empty">
+            Loading orders...
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     NEW ORDER POPUP
+========================================== -->
+
+<div
+    id="jomzAdminPopup"
+    class="jomz-admin-popup"
+>
+
+    <div class="jomz-admin-popup-box">
+
+        <h2>🔔 NEW ORDER!</h2>
+
+        <p id="jomzAdminPopupMessage">
+            A new JOMZ SHOP order has arrived.
+        </p>
+
+        <button onclick="closeJomzAdminPopup()">
+            OK
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     CUSTOMER MESSAGE MODAL
+========================================== -->
+
+<div
+    id="customerMessageModal"
+    class="customer-message-modal"
+>
+
+    <div class="customer-message-box">
+
+        <h2>
+            💬 SEND CUSTOMER MESSAGE
+        </h2>
+
+        <label for="customerMessageOrderId">
+            Order ID
+        </label>
+
+        <input
+            type="number"
+            id="customerMessageOrderId"
+            placeholder="Enter Order ID"
+        >
+
+        <label for="customerMessageText">
+            Message
+        </label>
+
+        <textarea
+            id="customerMessageText"
+            placeholder="Type your message here..."
+            rows="5"
+        ></textarea>
+
+        <div class="message-box-buttons">
+
+            <button
+                class="send-message-btn"
+                onclick="sendCustomerMessage()"
+            >
+                📤 SEND MESSAGE
+            </button>
+
+            <button
+                class="close-message-btn"
+                onclick="closeCustomerMessageBox()"
+            >
+                CANCEL
+            </button>
+
+        </div>
+
+        <button
+            class="history-btn"
+            onclick="loadCustomerMessageHistory()"
+        >
+            📜 VIEW MESSAGE HISTORY
+        </button>
+
+        <hr>
+
+        <h3>
+            📜 MESSAGE HISTORY
+        </h3>
+
+        <div id="customerMessageHistory">
+
+            <div class="message-history-empty">
+                Enter an Order ID and click
+                "VIEW MESSAGE HISTORY".
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let allOrders = [];
+
+let currentFilter = "All";
+    
+    // =================================
+// LOAD ORDERS
+// =================================
+
+async function loadOrders() {
+
+    const ordersBox =
+        document.getElementById("orders");
+
+    try {
+
+        const response =
+            await fetch("/api/orders");
+
+        if (response.status === 401) {
+
+            window.location.href =
+                "/login.html";
+
+            return;
+
+        }
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+
+            ordersBox.innerHTML =
+                '<div class="empty">' +
+                (data.message ||
+                "Could not load orders.") +
+                '</div>';
+
+            return;
+
+        }
+
+        if (!Array.isArray(data)) {
+
+            ordersBox.innerHTML =
+                '<div class="empty">' +
+                "Invalid order data." +
+                "</div>";
+
+            return;
+
+        }
+
+
+        // =================================
+        // CHECK FOR NEW ORDERS
+        // =================================
+
+        const previousOrderCount =
+            Number(
+                localStorage.getItem(
+                    "jomzPreviousOrderCount"
+                )
+            ) || 0;
+
+
+        if (
+            previousOrderCount > 0 &&
+            data.length > previousOrderCount
+        ) {
+
+            const newOrders =
+                data.length -
+                previousOrderCount;
+
+
+            showJomzAdminPopup(
+
+                "🔔 " +
+                newOrders +
+                " new order" +
+                (
+                    newOrders > 1
+                    ? "s"
+                    : ""
+                ) +
+                " received!"
+
+            );
+
+        }
+
+
+        // =================================
+        // SAVE CURRENT ORDER COUNT
+        // =================================
+
+        localStorage.setItem(
+            "jomzPreviousOrderCount",
+            data.length
+        );
+
+
+        allOrders = data;
+
+        updateStats();
+
+        displayOrders();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Load orders error:",
+            error
+        );
+
+        ordersBox.innerHTML =
+            '<div class="empty">' +
+            "Could not connect to the server." +
+            "</div>";
+
+    }
+
+}
+
+
+// =================================
+// UPDATE STATISTICS
+// =================================
+
+function updateStats() {
+
+    const total =
+        allOrders.length;
+
+
+    const pending =
+        allOrders.filter(
+
+            order =>
+                order.status !==
+                "Completed"
+
+        ).length;
+
+
+    const paid =
+        allOrders.filter(
+
+            order =>
+                order.paymentStatus ===
+                "Paid"
+
+        ).length;
+
+
+    const completed =
+        allOrders.filter(
+
+            order =>
+                order.status ===
+                "Completed"
+
+        ).length;
+
+
+    // =================================
+    // PRICE CONVERTER
+    // =================================
+
+    const getPrice = order => {
+
+        return Number(
+
+            String(
+                order.price || 0
+            )
+            .replace(/[₦,]/g, "")
+
+        ) || 0;
+
+    };
+
+
+    // =================================
+    // TOTAL REVENUE
+    // =================================
+
+    const totalRevenue =
+        allOrders.reduce(
+
+            (total, order) =>
+
+                total +
+                getPrice(order),
+
+            0
+
+        );
+
+
+    // =================================
+    // COMPLETED REVENUE
+    // =================================
+
+    const completedRevenue =
+        allOrders
+
+        .filter(
+
+            order =>
+                order.status ===
+                "Completed"
+
+        )
+
+        .reduce(
+
+            (total, order) =>
+
+                total +
+                getPrice(order),
+
+            0
+
+        );
+
+
+    // =================================
+    // TODAY
+    // =================================
+
+    const today =
+        new Date().toDateString();
+
+
+    const todayList =
+        allOrders.filter(order => {
+
+            if (!order.date) {
+
+                return false;
+
+            }
+
+
+            return (
+
+                new Date(
+                    order.date
+                ).toDateString()
+
+                ===
+
+                today
+
+            );
+
+        });
+
+
+    const todayOrders =
+        todayList.length;
+
+
+    const todayRevenue =
+        todayList.reduce(
+
+            (total, order) =>
+
+                total +
+                getPrice(order),
+
+            0
+
+        );
+
+
+    // =================================
+    // DISPLAY STATS
+    // =================================
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "pendingOrders"
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        "paidOrders"
+    ).textContent =
+        paid;
+
+
+    document.getElementById(
+        "completedOrders"
+    ).textContent =
+        completed;
+
+
+    document.getElementById(
+        "totalRevenue"
+    ).textContent =
+        "₦" +
+        totalRevenue.toLocaleString();
+
+
+    document.getElementById(
+        "completedRevenue"
+    ).textContent =
+        "₦" +
+        completedRevenue.toLocaleString();
+
+
+    document.getElementById(
+        "todayRevenue"
+    ).textContent =
+        "₦" +
+        todayRevenue.toLocaleString();
+
+
+    document.getElementById(
+        "todayOrders"
+    ).textContent =
+        todayOrders;
+
+}
+
+
+// =================================
+// FILTER
+// =================================
+
+function setFilter(
+    filter,
+    button
+) {
+
+    currentFilter =
+        filter;
+
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    displayOrders();
+
+}
+
+
+// =================================
+// DISPLAY ORDERS
+// =================================
+
+function displayOrders() {
+
+    const ordersBox =
+        document.getElementById(
+            "orders"
+        );
+
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    let filtered =
+        allOrders.filter(order => {
+
+            const orderId =
+                String(
+                    order.id || ""
+                )
+                .toLowerCase();
+
+
+            const playerID =
+                String(
+                    order.playerID || ""
+                )
+                .toLowerCase();
+
+
+            const product =
+                String(
+                    order.product || ""
+                )
+                .toLowerCase();
+
+
+            return (
+
+                orderId.includes(search) ||
+
+                playerID.includes(search) ||
+
+                product.includes(search)
+
+            );
+
+        });
+
+
+    // =================================
+    // PENDING FILTER
+    // =================================
+
+    if (
+        currentFilter ===
+        "Pending"
+    ) {
+
+        filtered =
+            filtered.filter(
+
+                order =>
+                    order.status !==
+                    "Completed"
+
+            );
+
+    }
+
+
+    // =================================
+    // AWAITING PAYMENT FILTER
+    // =================================
+
+    if (
+        currentFilter ===
+        "Awaiting Confirmation"
+    ) {
+
+        filtered =
+            filtered.filter(
+
+                order =>
+                    order.paymentStatus ===
+                    "Awaiting Confirmation"
+
+            );
+
+    }
+
+
+    // =================================
+    // PAID FILTER
+    // =================================
+
+    if (
+        currentFilter ===
+        "Paid"
+    ) {
+
+        filtered =
+            filtered.filter(
+
+                order =>
+                    order.paymentStatus ===
+                    "Paid"
+
+            );
+
+    }
+
+
+    // =================================
+    // COMPLETED FILTER
+    // =================================
+
+    if (
+        currentFilter ===
+        "Completed"
+    ) {
+
+        filtered =
+            filtered.filter(
+
+                order =>
+                    order.status ===
+                    "Completed"
+
+            );
+
+    }
+
+
+    // =================================
+    // PAYMENT NOT RECEIVED FILTER
+    // =================================
+
+    if (
+        currentFilter ===
+        "Payment Not Received"
+    ) {
+
+        filtered =
+            filtered.filter(
+
+                order =>
+                    order.paymentStatus ===
+                    "Payment Not Received"
+
+            );
+
+    }
+
+
+    // =================================
+    // NO ORDERS
+    // =================================
+
+    if (
+        filtered.length === 0
+    ) {
+
+        ordersBox.innerHTML =
+
+            '<div class="empty">' +
+            "No orders found." +
+            "</div>";
+
+        return;
+
+    }
+
+
+    ordersBox.innerHTML = "";
+
+
+    // =================================
+    // DISPLAY NEWEST FIRST
+    // =================================
+
+    filtered
+        .slice()
+        .reverse()
+        .forEach(order => {
+
+
+            const paymentStatus =
+                order.paymentStatus ||
+                "Pending";
+
+
+            const orderStatus =
+                order.status ||
+                "Pending";
+
+
+            let paymentHTML;
+
+
+            // =================================
+            // AWAITING CONFIRMATION
+            // =================================
+
+            if (
+                paymentStatus ===
+                "Awaiting Confirmation"
+            ) {
+
+                paymentHTML = `
+
+                    <span class="payment-awaiting">
+                        🟡 Awaiting Confirmation
+                    </span>
+
+                    <br>
+
+                    <button
+                        class="action confirm"
+                        onclick="confirmPayment(${order.id})"
+                    >
+                        ✅ CONFIRM PAYMENT
+                    </button>
+
+                    <button
+                        class="action not-received"
+                        onclick="paymentNotReceived(${order.id})"
+                    >
+                        ❌ PAYMENT NOT RECEIVED
+                    </button>
+
+                `;
+
+            }
+
+
+            // =================================
+            // PAID
+            // =================================
+
+            else if (
+                paymentStatus ===
+                "Paid"
+            ) {
+
+                paymentHTML = `
+
+                    <span class="payment-paid">
+                        🟢 PAID
+                    </span>
+
+                `;
+
+            }
+
+
+            // =================================
+            // PAYMENT NOT RECEIVED
+            // =================================
+
+            else if (
+                paymentStatus ===
+                "Payment Not Received"
+            ) {
+
+                paymentHTML = `
+
+                    <span class="payment-not-received">
+                        ❌ PAYMENT NOT RECEIVED
+                    </span>
+
+                `;
+
+            }
+
+
+            // =================================
+            // NORMAL PENDING
+            // =================================
+
+            else {
+
+                paymentHTML = `
+
+                    <span>
+                        ⏳ Pending
+                    </span>
+
+                `;
+
+            }
+
+
+            // =================================
+            // ORDER STATUS
+            // =================================
+
+            let statusHTML;
+
+
+            if (
+                orderStatus ===
+                "Completed"
+            ) {
+
+                statusHTML = `
+
+                    <span class="status-completed">
+                        🟢 Completed
+                    </span>
+
+                `;
+
+            }
+
+            else {
+
+                statusHTML = `
+
+                    <span class="status-pending">
+                        🟡 Pending
+                    </span>
+
+                    <br>
+
+                    <button
+                        class="action complete"
+                        onclick="completeOrder(${order.id})"
+                    >
+                        ✅ MARK AS COMPLETED
+                    </button>
+
+                `;
+
+            }
+
+
+            // =================================
+            // DATE
+            // =================================
+
+            const date =
+                order.date
+
+                ?
+
+                new Date(
+                    order.date
+                ).toLocaleString()
+
+                :
+
+                "Unknown";
+
+
+            // =================================
+            // ORDER CARD
+            // =================================
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "order";
+
+
+            card.innerHTML = `
+
+                <h3>
+                    Order #${order.id}
+                </h3>
+
+
+                <p>
+                    <b>Player ID:</b>
+                    ${order.playerID ||
+                    "Not available"}
+                </p>
+
+
+                <p>
+                    <b>Package:</b>
+                    ${order.product ||
+                    "Not available"}
+                </p>
+
+
+                <p>
+                    <b>Quantity:</b>
+                    ${order.quantity || 1}
+                </p>
+
+
+                <p>
+                    <b>Price:</b>
+                    ${order.price ||
+                    "Not available"}
+                </p>
+
+
+                <p>
+                    <b>Payment:</b>
+                    ${paymentHTML}
+                </p>
+
+
+                <p>
+                    <b>Status:</b>
+                    ${statusHTML}
+                </p>
+
+
+                ${
+                    orderStatus ===
+                    "Completed"
+
+                    ?
+
+                    `
+
+                    <button
+                        class="action receipt"
+                        onclick="window.location.href='receipt.html?id=${order.id}'"
+                    >
+                        🧾 VIEW RECEIPT
+                    </button>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+                <button
+                    class="action delete"
+                    onclick="deleteOrder(${order.id})"
+                >
+                    🗑️ DELETE ORDER
+                </button>
+
+
+                <p>
+                    <b>Date:</b>
+                    ${date}
+                </p>
+
+            `;
+
+
+            ordersBox.appendChild(
+                card
+            );
+
+        });
+
+}
+    
+    // =================================
+// CONFIRM PAYMENT
+// =================================
+
+async function confirmPayment(orderId) {
+
+    const confirmed = confirm(
+        "Have you checked your bank account and confirmed that this payment was received?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "/api/orders/" +
+            orderId +
+            "/payment-confirm",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                }
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            // Show only one confirmation popup
+            showJomzAdminPopup(
+                "🟢 Payment confirmed successfully!"
+            );
+
+            loadOrders();
+
+        }
+
+        else {
+
+            alert(
+                data.message ||
+                "Could not confirm payment."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Confirm payment error:",
+            error
+        );
+
+        alert(
+            "Could not connect to the server."
+        );
+
+    }
+
+}
+
+
+
+// =================================
+// PAYMENT NOT RECEIVED
+// =================================
+
+async function paymentNotReceived(orderId) {
+
+    const confirmed = confirm(
+        "Are you sure payment has not been received?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "/api/orders/" +
+            orderId +
+            "/payment-not-received",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                }
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            showJomzAdminPopup(
+                "❌ Payment marked as not received."
+            );
+
+            loadOrders();
+
+        }
+
+        else {
+
+            alert(
+                data.message ||
+                "Could not update payment status."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Payment not received error:",
+            error
+        );
+
+        alert(
+            "Could not connect to the server."
+        );
+
+    }
+
+}
+
+
+
+// =================================
+// COMPLETE ORDER
+// =================================
+
+async function completeOrder(orderId) {
+
+    const confirmed = confirm(
+        "Are you sure you want to mark this order as completed?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "/api/orders/" +
+            orderId,
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    status: "Completed"
+                })
+
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            showJomzAdminPopup(
+                "✅ Order marked as completed!"
+            );
+
+            loadOrders();
+
+        }
+
+        else {
+
+            alert(
+                data.message ||
+                "Could not complete order."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Complete order error:",
+            error
+        );
+
+        alert(
+            "Could not connect to the server."
+        );
+
+    }
+
+}
+
+
+
+// =================================
+// DELETE ORDER
+// =================================
+
+async function deleteOrder(orderId) {
+
+    const confirmed = confirm(
+        "Are you sure you want to delete this order?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "/api/orders/" +
+            orderId,
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            showJomzAdminPopup(
+                "🗑️ Order deleted successfully."
+            );
+
+            loadOrders();
+
+        }
+
+        else {
+
+            alert(
+                data.message ||
+                "Could not delete order."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Delete order error:",
+            error
+        );
+
+        alert(
+            "Could not connect to the server."
+        );
+
+    }
+
+}
+
+
+
+// =================================
+// START ADMIN DASHBOARD
+// =================================
+
+loadOrders();
+
+
+
+// =================================
+// AUTOMATIC ADMIN REFRESH
+// =================================
+
+setInterval(function () {
+
+    loadOrders();
+
+}, 5000);
+
+
+
+// =================================
+// JOMZ SHOP ADMIN POPUP
+// =================================
+
+function showJomzAdminPopup(message) {
+
+    const popup =
+        document.getElementById(
+            "jomzAdminPopup"
+        );
+
+    const popupMessage =
+        document.getElementById(
+            "jomzAdminPopupMessage"
+        );
+
+
+    if (
+        !popup ||
+        !popupMessage
+    ) {
+
+        return;
+
+    }
+
+
+    popupMessage.textContent =
+        message;
+
+
+    popup.style.display =
+        "flex";
+
+}
+
+
+
+// =================================
+// CLOSE ADMIN POPUP
+// =================================
+
+function closeJomzAdminPopup() {
+
+    const popup =
+        document.getElementById(
+            "jomzAdminPopup"
+        );
+
+
+    if (popup) {
+
+        popup.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+// ==========================================
+// CUSTOMER MESSAGE SYSTEM
+// ==========================================
+
+// Open the message box
+function openCustomerMessageBox() {
+
+    const modal =
+        document.getElementById(
+            "customerMessageModal"
+        );
+
+
+    if (!modal) {
+
+        console.error(
+            "Customer message modal not found."
+        );
+
+        return;
+
+    }
+
+
+    modal.style.display =
+        "flex";
+
+
+    // Clear previous temporary values
+    const result =
+        document.getElementById(
+            "messageSendResult"
+        );
+
+    if (result) {
+
+        result.textContent = "";
+
+    }
+
+}
+
+
+
+// Close the message box
+function closeCustomerMessageBox() {
+
+    const modal =
+        document.getElementById(
+            "customerMessageModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+// Close when clicking outside modal
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "customerMessageModal"
+            );
+
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
+
+            closeCustomerMessageBox();
+
+        }
+
+    }
+);
+
+
+
+// ==========================================
+// SEND CUSTOMER MESSAGE
+// ==========================================
+
+async function sendCustomerMessage() {
+
+    const orderInput =
+        document.getElementById(
+            "customerMessageOrderId"
+        );
+
+    const messageInput =
+        document.getElementById(
+            "customerMessageText"
+        );
+
+
+    if (
+        !orderInput ||
+        !messageInput
+    ) {
+
+        alert(
+            "Customer message box is not available."
+        );
+
+        return;
+
+    }
+
+
+    const orderId =
+        orderInput.value.trim();
+
+
+    const message =
+        messageInput.value.trim();
+
+
+    // =================================
+    // VALIDATION
+    // =================================
+
+    if (!orderId) {
+
+        alert(
+            "Please enter the Order ID."
+        );
+
+        return;
+
+    }
+
+
+    if (!message) {
+
+        alert(
+            "Please type a message."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/customer-messages",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        orderId:
+                            Number(orderId),
+
+                        message:
+                            message
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        // =================================
+        // SUCCESS
+        // =================================
+
+        if (
+            response.ok &&
+            data.success
+        ) {
+
+            alert(
+                "✅ Message sent successfully!"
+            );
+
+
+            // Keep Order ID so history
+            // can still be viewed
+            messageInput.value = "";
+
+
+            await loadCustomerMessageHistory();
+
+
+        }
+
+        // =================================
+        // ERROR
+        // =================================
+
+        else {
+
+            alert(
+                data.message ||
+                "Could not send message."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Customer message error:",
+            error
+        );
+
+
+        alert(
+            "Could not connect to the server."
+        );
+
+    }
+
+}
+
+
+
+// ==========================================
+// LOAD CUSTOMER MESSAGE HISTORY
+// ==========================================
+
+async function loadCustomerMessageHistory() {
+
+    const orderInput =
+        document.getElementById(
+            "customerMessageOrderId"
+        );
+
+
+    const historyBox =
+        document.getElementById(
+            "customerMessageHistory"
+        );
+
+
+    if (
+        !orderInput ||
+        !historyBox
+    ) {
+
+        return;
+
+    }
+
+
+    const orderId =
+        orderInput.value.trim();
+
+
+    if (!orderId) {
+
+        alert(
+            "Please enter an Order ID first."
+        );
+
+        return;
+
+    }
+
+
+    historyBox.innerHTML =
+
+        '<p style="' +
+        'color:#aaa;' +
+        'text-align:center;' +
+        '">' +
+        "⏳ Loading message history..." +
+        "</p>";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/customer-messages/" +
+                encodeURIComponent(orderId)
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            historyBox.innerHTML =
+
+                '<p style="' +
+                'color:#ff4444;' +
+                'text-align:center;' +
+                '">' +
+
+                (
+                    data.message ||
+                    "Could not load message history."
+                ) +
+
+                "</p>";
+
+            return;
+
+        }
+
+
+        // =================================
+        // NO HISTORY
+        // =================================
+
+        if (
+            !data.messages ||
+            data.messages.length === 0
+        ) {
+
+            historyBox.innerHTML =
+
+                '<p style="' +
+                'color:#888;' +
+                'text-align:center;' +
+                '">' +
+
+                "📜 No messages sent for this order yet." +
+
+                "</p>";
+
+            return;
+
+        }
+
+
+        // =================================
+        // DISPLAY HISTORY
+        // =================================
+
+        historyBox.innerHTML = "";
+
+
+        data.messages.forEach(
+            function(item) {
+
+                const messageItem =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                messageItem.className =
+                    "message-history-item";
+
+
+                const date =
+                    item.created_at
+
+                    ?
+
+                    new Date(
+                        item.created_at
+                    ).toLocaleString()
+
+                    :
+
+                    "Unknown date";
+
+
+                messageItem.innerHTML = `
+
+                    <strong>
+                        Order #${item.order_id}
+                    </strong>
+
+                    <p>
+                        ${escapeMessageHTML(
+                            item.message
+                        )}
+                    </p>
+
+                    <small>
+                        ${date}
+                    </small>
+
+                `;
+
+
+                historyBox.appendChild(
+                    messageItem
+                );
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Message history error:",
+            error
+        );
+
+
+        historyBox.innerHTML =
+
+            '<p style="' +
+            'color:#ff4444;' +
+            'text-align:center;' +
+            '">' +
+
+            "Could not connect to the server." +
+
+            "</p>";
+
+    }
+
+}
+
+
+
+// ==========================================
+// ESCAPE MESSAGE HTML
+// ==========================================
+
+function escapeMessageHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+    
+    // ==========================================
+// CLOSE CUSTOMER MESSAGE MODAL
+// ==========================================
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+        const modal =
+            document.getElementById(
+                "customerMessageModal"
+            );
+
+        if (modal) {
+            modal.style.display = "none";
+        }
+
+    }
+);
+
+
+// ==========================================
+// AUTO-FILL MESSAGE ORDER ID
+// ==========================================
+
+function messageCustomerForOrder(orderId) {
+
+    const modal =
+        document.getElementById(
+            "customerMessageModal"
+        );
+
+    const orderInput =
+        document.getElementById(
+            "customerMessageOrderId"
+        );
+
+    const messageInput =
+        document.getElementById(
+            "customerMessageText"
+        );
+
+
+    if (!modal || !orderInput) {
+        return;
+    }
+
+
+    orderInput.value =
+        orderId;
+
+
+    if (messageInput) {
+        messageInput.value = "";
+    }
+
+
+    modal.style.display =
+        "flex";
+
+}
+
+
+
+// ==========================================
+// INITIALIZE CUSTOMER MESSAGE SYSTEM
+// ==========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const modal =
+            document.getElementById(
+                "customerMessageModal"
+            );
+
+
+        if (modal) {
+
+            modal.style.display =
+                "none";
+
+        }
+
+
+        const historyBox =
+            document.getElementById(
+                "customerMessageHistory"
+            );
+
+
+        if (historyBox) {
+
+            historyBox.innerHTML = "";
+
+        }
+
+    }
+);
+
+
+// ==========================================
+// FINAL ADMIN DASHBOARD CHECK
+// ==========================================
+
+console.log(
+    "JOMZ SHOP ADMIN DASHBOARD READY"
+);
+
+console.log(
+    "Customer message system ready"
+);
+
+console.log(
+    "Message history system ready"
+);
+    </script>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>JOMZ SHOP Admin Login</title>
+
+</head>
+
+
+<body>
+
+    <h1>JOMZ SHOP ADMIN</h1>
+
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Username"
+    >
+
+
+    <br><br>
+
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+    >
+
+
+    <br><br>
+
+
+    <button onclick="login()">
+
+        LOGIN
+
+    </button>
+
+
+    <p id="message"></p>
+
+
+
+    <script>
+
+
+        async function login() {
+
+
+            const username =
+
+                document
+                    .getElementById("username")
+                    .value
+                    .trim();
+
+
+            const password =
+
+                document
+                    .getElementById("password")
+                    .value;
+
+
+            const message =
+
+                document
+                    .getElementById("message");
+
+
+
+            message.textContent =
+                "Logging in...";
+
+
+
+            try {
+
+
+                const response =
+
+                    await fetch(
+
+                        "/api/login",
+
+                        {
+
+                            method:
+                                "POST",
+
+
+                            credentials:
+                                "same-origin",
+
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+
+                            body:
+
+                                JSON.stringify({
+
+                                    username:
+                                        username,
+
+                                    password:
+                                        password
+
+                                })
+
+                        }
+
+                    );
+
+
+
+                const data =
+
+                    await response.json();
+
+
+
+                if (
+
+                    data.success
+
+                ) {
+
+
+                    message.textContent =
+                        "Login successful!";
+
+
+
+                    window.location.href =
+                        "/admin.html";
+
+
+                }
+
+
+                else {
+
+
+                    message.textContent =
+
+                        data.message ||
+
+                        "Login failed.";
+
+
+                }
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(error);
+
+
+
+                message.textContent =
+
+                    "Could not connect to the server.";
+
+
+            }
+
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

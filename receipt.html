@@ -1,0 +1,888 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+«»
+
+<title></title><style>
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    padding: 15px;
+
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(0, 255, 136, 0.12),
+            transparent 35%
+        ),
+        #050505;
+
+    color: white;
+
+}
+
+
+/* ==============================
+   RECEIPT
+============================== */
+
+.receipt {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    margin: auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0b0b0b,
+            #151515
+        );
+
+    border:
+        1px solid
+        rgba(0, 255, 136, 0.35);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+}
+
+
+/* ==============================
+   HEADER
+============================== */
+
+.header {
+
+    text-align: center;
+
+    padding:
+        25px
+        15px
+        20px;
+
+    border-bottom:
+        1px solid #252525;
+
+}
+
+
+.logo {
+
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    font-style: italic;
+
+    letter-spacing: 2px;
+
+    color: #9cff39;
+
+}
+
+
+.subtitle {
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    color: #aaa;
+
+}
+
+
+.receipt-title {
+
+    margin-top: 18px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+}
+
+
+/* ==============================
+   CONTENT
+============================== */
+
+.content {
+
+    padding: 20px;
+
+}
+
+
+/* ==============================
+   ORDER DETAILS
+============================== */
+
+.order-details {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+}
+
+
+.detail {
+
+    background: #111;
+
+    border: 1px solid #242424;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+}
+
+
+.detail-label {
+
+    font-size: 10px;
+
+    color: #888;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.detail-value {
+
+    color: #9cff39;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    word-break: break-word;
+
+}
+
+
+/* ==============================
+   STATUS
+============================== */
+
+.status-box {
+
+    margin-top: 15px;
+
+    background:
+        rgba(0, 255, 136, 0.05);
+
+    border:
+        1px solid
+        rgba(0, 255, 136, 0.25);
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+}
+
+
+.status-row {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    padding: 8px 0;
+
+}
+
+
+.status-row:first-child {
+
+    border-bottom:
+        1px solid #222;
+
+}
+
+
+.status-label {
+
+    color: #aaa;
+
+    font-size: 13px;
+
+}
+
+
+.status-value {
+
+    color: #9cff39;
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+}
+
+
+/* ==============================
+   THANK YOU
+============================== */
+
+.thank-you {
+
+    text-align: center;
+
+    padding:
+        20px
+        10px
+        10px;
+
+}
+
+
+.thank-you h2 {
+
+    margin: 0;
+
+    color: #9cff39;
+
+    font-size: 24px;
+
+}
+
+
+.thank-you p {
+
+    margin: 8px 0 0;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+}
+
+
+/* ==============================
+   FOOTER
+============================== */
+
+.footer {
+
+    text-align: center;
+
+    padding:
+        18px
+        15px;
+
+    border-top:
+        1px solid #222;
+
+    color: #888;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+}
+
+
+.footer strong {
+
+    color: #9cff39;
+
+}
+
+
+/* ==============================
+   BUTTONS
+============================== */
+
+.buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    padding:
+        0
+        20px
+        20px;
+
+}
+
+
+button {
+
+    flex: 1;
+
+    border: none;
+
+    border-radius: 9px;
+
+    padding: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.print {
+
+    background: #9cff39;
+
+    color: black;
+
+}
+
+
+.back {
+
+    background: #242424;
+
+    color: white;
+
+}
+
+
+/* ==============================
+   LOADING
+============================== */
+
+.loading {
+
+    text-align: center;
+
+    padding: 50px 15px;
+
+    color: #9cff39;
+
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media (
+    max-width: 400px
+) {
+
+    .logo {
+
+        font-size: 32px;
+
+    }
+
+
+    .order-details {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .buttons {
+
+        flex-direction:
+            column;
+
+    }
+
+}
+
+
+/* ==============================
+   PRINT
+============================== */
+
+@media print {
+
+    body {
+
+        padding: 0;
+
+        background: white;
+
+    }
+
+
+    .receipt {
+
+        max-width: 100%;
+
+        border: none;
+
+    }
+
+
+    .buttons {
+
+        display: none;
+
+    }
+
+}
+
+
+</style></head><body><div class="receipt"><!-- ==============================
+     HEADER
+============================== --><div class="header"><h1 class="logo">
+
+    💎 JOMZ SHOP
+
+</h1>
+
+
+<div class="subtitle">
+
+    FAST • SECURE • RELIABLE
+
+</div>
+
+
+<div class="receipt-title">
+
+    RECEIPT
+
+</div>
+
+</div><!-- ==============================
+     LOADING
+============================== --><div
+    id="loading"
+    class="loading"
+>Loading receipt...
+
+</div><!-- ==============================
+     RECEIPT CONTENT
+============================== --><div
+    id="receiptContent"
+    style="display:none;"
+><div class="content"><!-- ==============================
+     ORDER DETAILS
+============================== --><div class="order-details"><div class="detail"><div class="detail-label">
+
+    ORDER ID
+
+</div>
+
+<div
+    class="detail-value"
+    id="orderID"
+>
+
+    -
+
+</div>
+
+</div><div class="detail"><div class="detail-label">
+
+    PLAYER ID
+
+</div>
+
+<div
+    class="detail-value"
+    id="playerID"
+>
+
+    -
+
+</div>
+
+</div><div class="detail"><div class="detail-label">
+
+    PACKAGE
+
+</div>
+
+<div
+    class="detail-value"
+    id="package"
+>
+
+    -
+
+</div>
+
+</div><div class="detail"><div class="detail-label">
+
+    AMOUNT
+
+</div>
+
+<div
+    class="detail-value"
+    id="price"
+>
+
+    ₦0
+
+</div>
+
+</div><div class="detail"><div class="detail-label">
+
+    DATE
+
+</div>
+
+<div
+    class="detail-value"
+    id="date"
+>
+
+    -
+
+</div>
+
+</div><div class="detail"><div class="detail-label">
+
+    QUANTITY
+
+</div>
+
+<div
+    class="detail-value"
+    id="quantity"
+>
+
+    1
+
+</div>
+
+</div></div><!-- ==============================
+     STATUS
+============================== --><div class="status-box"><div class="status-row"><span class="status-label">
+
+    💳 Payment
+
+</span>
+
+<span
+    class="status-value"
+    id="paymentStatus"
+>
+
+    PAID
+
+</span>
+
+</div><div class="status-row"><span class="status-label">
+
+    🎁 Top-Up
+
+</span>
+
+<span
+    class="status-value"
+    id="orderStatus"
+>
+
+    COMPLETED
+
+</span>
+
+</div></div><!-- ==============================
+     THANK YOU
+============================== --><div class="thank-you"><h2>Thank You! ❤️
+
+</h2><p>Your Free Fire diamonds have been
+successfully delivered.
+
+</p></div></div><!-- ==============================
+     FOOTER
+============================== --><div class="footer"><strong>JOMZ SHOP
+
+</strong><br>Fast • Secure • Reliable
+
+</div><!-- ==============================
+     BUTTONS
+============================== --><div class="buttons"><button
+class="print"
+onclick="window.print()">
+
+
+
+🖨️ PRINT RECEIPT
+
+</button><button
+class="back"
+onclick="goBack()">
+
+
+
+← BACK
+
+</button></div></div></div><script>
+
+
+// ==============================
+// GET ORDER ID
+// ==============================
+
+const params =
+
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const orderId =
+
+    params.get("id");
+
+
+
+// ==============================
+// LOAD RECEIPT
+// ==============================
+
+function loadReceipt() {
+
+
+    if (!orderId) {
+
+
+        document.getElementById(
+            "loading"
+        ).textContent =
+
+            "Receipt ID not found.";
+
+
+        return;
+
+    }
+
+
+
+    fetch(
+
+        "/api/order-status/" +
+
+        orderId
+
+    )
+
+
+    .then(response => {
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not load receipt"
+            );
+
+        }
+
+
+        return response.json();
+
+    })
+
+
+    .then(data => {
+
+
+        if (
+
+            !data.success ||
+
+            !data.order
+
+        ) {
+
+            throw new Error(
+                "Order not found"
+            );
+
+        }
+
+
+
+        const order =
+
+            data.order;
+
+
+
+        document.getElementById(
+            "orderID"
+        ).textContent =
+
+            order.id || "N/A";
+
+
+
+        document.getElementById(
+            "playerID"
+        ).textContent =
+
+            order.playerID || "N/A";
+
+
+
+        document.getElementById(
+            "package"
+        ).textContent =
+
+            order.product || "N/A";
+
+
+
+        document.getElementById(
+            "price"
+        ).textContent =
+
+            order.price || "₦0";
+
+
+
+        document.getElementById(
+            "quantity"
+        ).textContent =
+
+            order.quantity || 1;
+
+
+
+        if (order.date) {
+
+
+            const date =
+
+                new Date(
+                    order.date
+                );
+
+
+            document.getElementById(
+                "date"
+            ).textContent =
+
+                date.toLocaleDateString();
+
+
+        }
+
+
+
+        document.getElementById(
+            "paymentStatus"
+        ).textContent =
+
+            (
+                order.paymentStatus ||
+                "Pending"
+            ).toUpperCase();
+
+
+
+        document.getElementById(
+            "orderStatus"
+        ).textContent =
+
+            (
+                order.status ||
+                "Pending"
+            ).toUpperCase();
+
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+
+            "none";
+
+
+        document.getElementById(
+            "receiptContent"
+        ).style.display =
+
+            "block";
+
+
+    })
+
+
+    .catch(error => {
+
+
+        console.error(error);
+
+
+        document.getElementById(
+            "loading"
+        ).textContent =
+
+            "❌ Could not load receipt.";
+
+
+    });
+
+
+}
+
+
+
+// ==============================
+// GO BACK
+// ==============================
+
+function goBack() {
+
+
+    window.location.href =
+        "index.html";
+
+
+}
+
+
+
+// ==============================
+// START
+// ==============================
+
+loadReceipt();
+
+
+</script></body></html>

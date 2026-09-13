@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/index.js": {
+"includeFiles": "{index.html,style.css,script.js,garena.png,admin.html,login.html,receipt.html,jomzheader.png}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.js"
+    }
+  ]
+}

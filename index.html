@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>JOMZ SHOP | Free Fire Top Up</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<!-- ==========================================
+     JOMZ LOADER
+     ========================================== -->
+
+<div id="jomzLoader">
+
+    <div class="loader-logo">
+
+        <span class="letter">J</span>
+        <span class="letter">O</span>
+        <span class="letter">M</span>
+        <span class="letter">Z</span>
+
+        <span class="space"></span>
+
+        <span class="letter shop-letter">S</span>
+        <span class="letter shop-letter">H</span>
+        <span class="letter shop-letter">O</span>
+        <span class="letter shop-letter">P</span>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     PAYMENT SCHEDULE POPUP
+     ========================================== -->
+
+<div
+    id="paymentSchedulePopup"
+    class="payment-popup"
+>
+
+    <div class="payment-popup-box">
+
+        <div class="popup-icon">
+            💳
+        </div>
+
+        <h2>
+            JOMZ PAYMENTS HOURS
+        </h2>
+
+        <p>
+            Payment for any diamond package
+            is active during the following hours:
+        </p>
+
+        <div class="payment-schedule">
+
+            <strong>
+                Monday – Saturday
+            </strong>
+
+            <span>
+                8:00 AM – 8:00 PM
+            </span>
+
+        </div>
+
+        <div class="payment-schedule closed">
+
+            <strong>
+                Sunday
+            </strong>
+
+            <span>
+                Payment Closed
+            </span>
+
+        </div>
+
+        <p id="paymentStatusMessage"></p>
+
+        <button
+            type="button"
+            onclick="closePaymentPopup()"
+        >
+            CONTINUE
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     ORDER CONFIRMATION POPUP
+     ========================================== -->
+
+<div
+    id="orderConfirmPopup"
+    class="payment-popup"
+>
+
+    <div class="payment-popup-box">
+
+        <div class="popup-icon">
+            🛒
+        </div>
+
+        <h2>
+            CONFIRM ORDER
+        </h2>
+
+        <p>
+            Please confirm your order details.
+        </p>
+
+        <div id="orderConfirmDetails"></div>
+
+        <div class="confirm-buttons">
+
+            <button
+                type="button"
+                onclick="closeOrderConfirmPopup()"
+            >
+                CANCEL
+            </button>
+
+            <button
+                type="button"
+                onclick="confirmOrder()"
+            >
+                CONFIRM ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     ORDER CLOSED POPUP
+     ========================================== -->
+
+<div
+    id="orderClosedPopup"
+    class="payment-popup"
+>
+
+    <div class="payment-popup-box">
+
+        <div class="popup-icon">
+            🔒
+        </div>
+
+        <h2>
+            ORDER CLOSED
+        </h2>
+
+        <p id="orderClosedMessage"></p>
+
+        <button
+            type="button"
+            onclick="closeOrderClosedPopup()"
+        >
+            OK
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     HEADER
+     ========================================== -->
+
+<header class="site-header">
+
+    <div class="top-brand-header">
+
+        <span>
+            JOMZ
+        </span>
+
+        <strong>
+            SHOP
+        </strong>
+
+    </div>
+
+
+    <nav>
+
+        <a
+            href="#home"
+            class="active"
+        >
+            Home
+        </a>
+
+        <a href="#topup">
+            Top Up
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <button
+            id="notificationBell"
+            class="notification-bell"
+            type="button"
+            onclick="openNotificationPanel()"
+        >
+
+            🔔
+
+            <span
+                id="notificationBadge"
+            >
+                0
+            </span>
+
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- ==========================================
+     NOTIFICATION PANEL
+     ========================================== -->
+
+<div
+    id="notificationPanel"
+    class="notification-panel"
+>
+
+    <div class="notification-panel-header">
+
+        <h2>
+            🔔 Notifications
+        </h2>
+
+        <button
+            type="button"
+            onclick="closeNotificationPanel()"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="notificationList">
+
+        <div class="notification-empty">
+
+            No notifications yet.
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="close-notification-panel"
+        type="button"
+        onclick="closeNotificationPanel()"
+    >
+        CLOSE
+    </button>
+
+</div>
+
+
+<!-- ==========================================
+     HERO SECTION
+     ========================================== -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="hero-overlay"></div>
+
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            ⚡ FAST • SIMPLE • RELIABLE
+        </div>
+
+
+        <h1>
+
+            FREE FIRE
+
+            <span>
+                TOP UP
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Get your Free Fire diamonds
+            quickly and securely.
+
+            Select your package,
+            enter your Player ID,
+            and place your order.
+
+        </p>
+
+
+        <button
+            type="button"
+            onclick="scrollToTopUp()"
+        >
+            TOP UP NOW
+        </button>
+
+    </div>
+
+</section>
+
+
+‎‎  
+<!-- ==========================================
+     TOP UP SECTION
+     ========================================== -->
+
+<section
+    class="topup"
+    id="topup"
+>
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            JOMZ SHOP
+        </span>
+
+        <h2>
+
+            FREE FIRE
+
+            <span>
+                TOP UP
+            </span>
+
+        </h2>
+
+        <p>
+            Choose your diamond package
+            and complete your order.
+        </p>
+
+    </div>
+
+
+    <div class="topup-container">
+
+
+        <!-- ==================================
+             PLAYER ID CARD
+             ================================== -->
+
+        <div class="form-box">
+
+            <div class="form-title">
+
+                <div class="form-number">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        PLAYER ID
+                    </h3>
+
+                    <p>
+                        Enter your Free Fire Player ID
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <label
+                for="playerID"
+            >
+                Free Fire Player ID
+            </label>
+
+
+            <div class="input-wrapper">
+
+                <span>
+                    🎮
+                </span>
+
+                <input
+                    type="text"
+                    id="playerID"
+                    placeholder="Enter your Player ID"
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================
+             PACKAGE SECTION
+             ================================== -->
+
+        <div class="package-section">
+
+            <div class="form-title">
+
+                <div class="form-number">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        DIAMOND PACKAGE
+                    </h3>
+
+                    <p>
+                        Select the package you want
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="packages">
+
+
+                <!-- 50 DIAMONDS -->
+
+                <div
+                    class="package"
+                    onclick="selectPackage(
+                        this,
+                        '50 Diamonds',
+                        '₦800'
+                    )"
+                >
+
+                    <div class="package-diamond">
+                        💎
+                    </div>
+
+                    <h3>
+                        50
+                    </h3>
+
+                    <p>
+                        Diamonds
+                    </p>
+
+                    <strong>
+                        ₦800
+                    </strong>
+
+                </div>
+
+
+                <!-- 100 DIAMONDS -->
+
+                <div
+                    class="package"
+                    onclick="selectPackage(
+                        this,
+                        '100 Diamonds',
+                        '₦1,600'
+                    )"
+                >
+
+                    <div class="package-diamond">
+                        💎
+                    </div>
+
+                    <h3>
+                        100
+                    </h3>
+
+                    <p>
+                        Diamonds
+                    </p>
+
+                    <strong>
+                        ₦1,600
+                    </strong>
+
+                </div>
+
+
+                <!-- 310 DIAMONDS -->
+
+                <div
+                    class="package"
+                    onclick="selectPackage(
+                        this,
+                        '310 Diamonds',
+                        '₦4,800'
+                    )"
+                >
+
+                    <div class="package-diamond">
+                        💎
+                    </div>
+
+                    <h3>
+                        310
+                    </h3>
+
+                    <p>
+                        Diamonds
+                    </p>
+
+                    <strong>
+                        ₦4,800
+                    </strong>
+
+                </div>
+
+
+                <!-- 520 DIAMONDS -->
+
+                <div
+                    class="package"
+                    onclick="selectPackage(
+                        this,
+                        '520 Diamonds',
+                        '₦8,000'
+                    )"
+                >
+
+                    <div class="package-diamond">
+                        💎
+                    </div>
+
+                    <h3>
+                        520
+                    </h3>
+
+                    <p>
+                        Diamonds
+                    </p>
+
+                    <strong>
+                        ₦8,000
+                    </strong>
+
+                </div>
+
+
+                <!-- 1060 DIAMONDS -->
+
+                <div
+                    class="package"
+                    onclick="selectPackage(
+                        this,
+                        '1060 Diamonds',
+                        '₦16,000'
+                    )"
+                >
+
+                    <div class="package-diamond">
+                        💎
+                    </div>
+
+                    <h3>
+                        1060
+                    </h3>
+
+                    <p>
+                        Diamonds
+                    </p>
+
+                    <strong>
+                        ₦16,000
+                    </strong>
+
+                </div>
+
+
+                <!-- 2180 DIAMONDS -->
+
+                <div
+                    class="package"
+                    onclick="selectPackage(
+                        this,
+                        '2180 Diamonds',
+                        '₦32,000'
+                    )"
+                >
+
+                    <div class="package-diamond">
+                        💎
+                    </div>
+
+                    <h3>
+                        2180
+                    </h3>
+
+                    <p>
+                        Diamonds
+                    </p>
+
+                    <strong>
+                        ₦32,000
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================
+             ORDER SUMMARY
+             ================================== -->
+
+        <div class="summary">
+
+            <div class="summary-header">
+
+                <div>
+
+                    <span class="section-label">
+                        03
+                    </span>
+
+                    <h3>
+                        REVIEW ORDER
+                    </h3>
+
+                </div>
+
+                <span class="secure-label">
+                    🔒 SECURE
+                </span>
+
+            </div>
+
+
+            <div class="summary-details">
+
+                <div class="summary-row">
+
+                    <span>
+                        Player ID
+                    </span>
+
+                    <strong id="displayID">
+                        Not entered
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Package
+                    </span>
+
+                    <strong id="displayPackage">
+                        Not selected
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row total-row">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="displayPrice">
+                        ₦0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXISTING PLACE ORDER BUTTON -->
+
+            <button
+                class="place-order-button"
+                type="button"
+                onclick="placeOrder()"
+            >
+                🛒 PLACE ORDER
+            </button>
+
+
+            <!-- EXISTING PAY NOW BUTTON -->
+
+            <button
+                id="payButton"
+                class="pay-button"
+                type="button"
+                onclick="startPayment()"
+                style="display:none;"
+            >
+                💳 PAY NOW
+            </button>
+
+
+            <!-- ==================================
+                 PAYMENT BOX
+                 ================================== -->
+
+            <div
+                id="paymentBox"
+                class="payment-box"
+                style="display:none;"
+            >
+
+                <div class="payment-box-header">
+
+                    <div class="payment-icon">
+                        🏦
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            BANK TRANSFER
+                        </h3>
+
+                        <p>
+                            Complete your payment below
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="payment-details">
+
+                    <div class="payment-detail-row">
+
+                        <span>
+                            Bank
+                        </span>
+
+                        <strong>
+                            OPay
+                        </strong>
+
+                    </div>
+
+
+                    <div class="payment-detail-row">
+
+                        <span>
+                            Account Name
+                        </span>
+
+                        <strong>
+                            OMOBOWALE BISOYE RAHEEM
+                        </strong>
+
+                    </div>
+
+
+                    <div class="payment-detail-row account-row">
+
+                        <div>
+
+                            <span>
+                                Account Number
+                            </span>
+
+                            <strong id="accountNumber">
+                                6141891181
+                            </strong>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            onclick="copyAccountNumber()"
+                        >
+                            📋 COPY
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="payment-instruction">
+
+                    <span>
+                        ℹ️
+                    </span>
+
+                    <p>
+                        After making the transfer,
+                        tap the button below to notify
+                        JOMZ SHOP.
+                    </p>
+
+                </div>
+
+
+                <!-- EXISTING TRANSFER BUTTON -->
+
+                <button
+                    id="confirmTransferButton"
+                    class="transfer-button"
+                    type="button"
+                    onclick="confirmTransfer()"
+                >
+                    ✅ I HAVE MADE THE TRANSFER
+                </button>
+
+
+                <!-- EXISTING PENDING MESSAGE -->
+
+                <p
+                    id="paymentPendingMessage"
+                    class="payment-pending-message"
+                    style="display:none;"
+                >
+                    ⏳ Your top-up is still pending.
+                    We are checking your payment.
+                </p>
+
+            </div>
+
+
+            <!-- ORDER STATUS IS CREATED BY SCRIPT.JS -->
+
+        </div>
+
+    </div>
+
+</section>
+    
+    <!-- ==========================================
+     HOW IT WORKS
+     ========================================== -->
+
+<section class="how-it-works">
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            SIMPLE PROCESS
+        </span>
+
+        <h2>
+            HOW IT
+            <span>
+                WORKS
+            </span>
+        </h2>
+
+        <p>
+            Complete your Free Fire top-up
+            in a few simple steps.
+        </p>
+
+    </div>
+
+
+    <div class="steps-container">
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <div class="step-icon">
+                🎮
+            </div>
+
+            <h3>
+                ENTER PLAYER ID
+            </h3>
+
+            <p>
+                Enter the Free Fire Player ID
+                where you want the diamonds sent.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <div class="step-icon">
+                💎
+            </div>
+
+            <h3>
+                SELECT PACKAGE
+            </h3>
+
+            <p>
+                Choose the diamond package
+                you want to purchase.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <div class="step-icon">
+                🛒
+            </div>
+
+            <h3>
+                PLACE ORDER
+            </h3>
+
+            <p>
+                Review your order and
+                confirm the purchase.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                04
+            </div>
+
+            <div class="step-icon">
+                💳
+            </div>
+
+            <h3>
+                MAKE PAYMENT
+            </h3>
+
+            <p>
+                Follow the payment details
+                and notify us after transfer.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     FEATURES
+     ========================================== -->
+
+<section class="features-section">
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            WHY JOMZ SHOP
+        </span>
+
+        <h2>
+            BUILT FOR
+            <span>
+                GAMERS
+            </span>
+        </h2>
+
+    </div>
+
+
+    <div class="features-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <h3>
+                    FAST SERVICE
+                </h3>
+
+                <p>
+                    Quick processing once your
+                    payment is confirmed.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🔒
+            </div>
+
+            <div>
+
+                <h3>
+                    SIMPLE & SECURE
+                </h3>
+
+                <p>
+                    A simple ordering and
+                    payment process.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💎
+            </div>
+
+            <div>
+
+                <h3>
+                    DIAMOND TOP UP
+                </h3>
+
+                <p>
+                    Select from available
+                    Free Fire diamond packages.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📢
+            </div>
+
+            <div>
+
+                <h3>
+                    ORDER UPDATES
+                </h3>
+
+                <p>
+                    Receive updates about your
+                    order and payment status.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     ABOUT
+     ========================================== -->
+
+<section
+    class="about"
+    id="about"
+>
+
+    <div class="about-container">
+
+
+        <div class="about-content">
+
+            <span class="section-label">
+                ABOUT JOMZ SHOP
+            </span>
+
+            <h2>
+
+                YOUR SIMPLE
+
+                <span>
+                    TOP UP
+                </span>
+
+                PLATFORM
+
+            </h2>
+
+
+            <p>
+
+                <b>
+                    JOMZ SHOP
+                </b>
+
+                provides a safe, fast, simple
+                and reliable platform for customers
+                to place gaming top-up orders.
+
+            </p>
+
+
+            <p>
+
+                Select your package,
+                enter your Player ID,
+                place your order and follow
+                the payment instructions.
+
+            </p>
+
+        </div>
+
+
+        <div class="about-highlight">
+
+            <div class="highlight-icon">
+                🎮
+            </div>
+
+            <h3>
+                JOMZ SHOP
+            </h3>
+
+            <p>
+                Gaming • Top Up • Digital Services
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     CUSTOMER MESSAGE POPUP
+     ========================================== -->
+
+<div
+    id="jomzCustomerMessagePopup"
+    class="jomz-customer-message-popup"
+>
+
+    <div class="jomz-customer-message-box">
+
+        <div class="jomz-customer-message-icon">
+            📢
+        </div>
+
+        <h2>
+            JOMZ SHOP
+        </h2>
+
+        <p id="jomzCustomerMessageText">
+            You have a new message.
+        </p>
+
+        <button
+            type="button"
+            onclick="closeCustomerMessagePopup()"
+        >
+            OK
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+
+<footer>
+
+    <div class="footer-brand">
+
+        <span>
+            JOMZ
+        </span>
+
+        <strong>
+            SHOP
+        </strong>
+
+    </div>
+
+
+    <p>
+        Gaming • Top Up • Digital Services
+    </p>
+
+
+    <div class="footer-line"></div>
+
+
+    <p class="copyright">
+        © 2026 JOMZ SHOP
+    </p>
+
+</footer>
+
+
+<!-- ==========================================
+     BACK TO TOP
+     ========================================== -->
+
+<button
+    id="scrollTopBtn"
+    type="button"
+    onclick="scrollToTop()"
+>
+    ↑ BACK TO TOP
+</button>
+
+
+<!-- ==========================================
+     SCRIPT
+     ========================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
