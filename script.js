@@ -1052,6 +1052,7 @@ function startPayment() {
 
 }
 
+
 // ==========================================
 // PAYMENT NOTIFICATION
 // ==========================================
@@ -1066,7 +1067,96 @@ function confirmTransfer() {
         return;
     }
 
+
+    const popup =
+        document.getElementById(
+            "whatsappPaymentPopup"
+        );
+
+    const notifyButton =
+        document.getElementById(
+            "notifyJomzButton"
+        );
+
+    const notNowButton =
+        document.getElementById(
+            "notNowButton"
+        );
+
+
+    if (!popup || !notifyButton || !notNowButton) {
+        alert("Payment notification system is unavailable.");
+        return;
+    }
+
+
+    // Show WhatsApp popup
+    popup.style.display = "block";
+
+
+    // YES, NOTIFY JOMZ
+    notifyButton.onclick = function () {
+
+        const message =
+            "Hello JOMZ, I've made payment for my order.\n\n" +
+
+            "Order ID: " +
+            orderId +
+            "\n" +
+
+            "Player ID: " +
+            document.getElementById("playerID").value +
+            "\n" +
+
+            "Package: " +
+            selectedPackage +
+            "\n" +
+
+            "Amount: ₦" +
+            Number(selectedPrice).toLocaleString() +
+            "\n\n" +
+
+            "Please confirm my payment and process my order. Thank you.";
+
+
+        const whatsappURL =
+            "https://wa.me/2349042529385?text=" +
+            encodeURIComponent(message);
+
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+
+        // Continue the existing payment notification
+        sendPaymentNotification(orderId);
+
+    };
+
+
+    // NOT NOW
+    notNowButton.onclick = function () {
+
+        popup.style.display = "none";
+
+        // Continue the existing payment notification
+        sendPaymentNotification(orderId);
+
+    };
+
+}
+
+
+// ==========================================
+// SEND PAYMENT NOTIFICATION TO SERVER
+// ==========================================
+
+function sendPaymentNotification(orderId) {
+
     setPaymentStage("pending");
+
 
     fetch(
         "/api/orders/" +
@@ -1082,7 +1172,9 @@ function confirmTransfer() {
     .then(response => {
 
         if (!response.ok) {
-            throw new Error("Payment notification failed");
+            throw new Error(
+                "Payment notification failed"
+            );
         }
 
         return response.json();
@@ -1101,6 +1193,7 @@ function confirmTransfer() {
                 data.message ||
                 "Could not send payment notification."
             );
+
         }
 
     })
@@ -1117,7 +1210,6 @@ function confirmTransfer() {
     });
 
 }
-
 // ==========================================
 // COPY ACCOUNT NUMBER
 // ==========================================
