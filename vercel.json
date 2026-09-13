@@ -1,13 +1,27 @@
 {
-  "functions": {
-    "api/index.js": {
-"includeFiles": "{index.html,style.css,script.js,garena.png,admin.html,login.html,receipt.html,jomzheader.png}"
-    }
-  },
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.js"
+      "src": "api/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "index.html",
+          "style.css",
+          "script.js",
+          "garena.png",
+          "admin.html",
+          "login.html",
+          "receipt.html",
+          "jomzheader.png"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
     }
   ]
 }
