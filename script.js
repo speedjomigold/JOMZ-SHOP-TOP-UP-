@@ -10,118 +10,89 @@ let notificationShown = false;
 
 function clearCompletedOrder() {
 
-localStorage.removeItem("jomzSelectedPackage");
-localStorage.removeItem("jomzSelectedPrice");
-localStorage.removeItem("jomzPlayerID");
-localStorage.removeItem("jomzOrderId");
-localStorage.removeItem("topupCompletedShown");
-localStorage.removeItem("jomzPaymentStage");
+    localStorage.removeItem("jomzSelectedPackage");
+    localStorage.removeItem("jomzSelectedPrice");
+    localStorage.removeItem("jomzPlayerID");
+    localStorage.removeItem("jomzOrderId");
+    localStorage.removeItem("topupCompletedShown");
+    localStorage.removeItem("jomzPaymentStage");
 
-selectedPackage = "";
-selectedPrice = "";
-orderCreated = false;
-notificationShown = false;
+    selectedPackage = "";
+    selectedPrice = "";
+    orderCreated = false;
+    notificationShown = false;
 
+    const playerID =
+        document.getElementById("playerID");
 
-const playerID =
-    document.getElementById("playerID");
+    if (playerID) {
+        playerID.value = "";
+    }
 
-if (playerID) {
+    const displayID =
+        document.getElementById("displayID");
 
-    playerID.value = "";
+    if (displayID) {
+        displayID.textContent = "Not entered";
+    }
 
-}
+    const displayPackage =
+        document.getElementById("displayPackage");
 
+    if (displayPackage) {
+        displayPackage.textContent = "Not selected";
+    }
 
-const displayID =
-    document.getElementById("displayID");
+    const displayPrice =
+        document.getElementById("displayPrice");
 
-if (displayID) {
+    if (displayPrice) {
+        displayPrice.textContent = "₦0";
+    }
 
-    displayID.textContent =
-        "Not entered";
+    const payButton =
+        document.getElementById("payButton");
 
-}
+    if (payButton) {
+        payButton.style.display = "none";
+    }
 
+    const paymentBox =
+        document.getElementById("paymentBox");
 
-const displayPackage =
-    document.getElementById(
-        "displayPackage"
-    );
+    if (paymentBox) {
+        paymentBox.style.display = "none";
+    }
 
-if (displayPackage) {
+    const transferButton =
+        document.getElementById("confirmTransferButton");
 
-    displayPackage.textContent =
-        "Not selected";
+    if (transferButton) {
+        transferButton.style.display = "none";
+    }
 
-}
+    const pendingMessage =
+        document.getElementById("paymentPendingMessage");
 
+    if (pendingMessage) {
+        pendingMessage.style.display = "none";
+    }
 
-const displayPrice =
-    document.getElementById(
-        "displayPrice"
-    );
+    const orderStatus =
+        document.getElementById("orderStatus");
 
-if (displayPrice) {
+    if (orderStatus) {
+        orderStatus.remove();
+    }
 
-    displayPrice.textContent =
-        "₦0";
+    const placeOrderButton =
+        document.querySelector(
+            '.summary button[onclick="placeOrder()"]'
+        );
 
-}
-
-
-const payButton =
-    document.getElementById(
-        "payButton"
-    );
-
-if (payButton) {
-
-    payButton.style.display =
-        "none";
-
-}
-
-
-const paymentBox =
-    document.getElementById(
-        "paymentBox"
-    );
-
-if (paymentBox) {
-
-    paymentBox.style.display =
-        "none";
-
-}
-
-const transferButton =
-    document.getElementById("confirmTransferButton");
-
-if (transferButton) {
-    transferButton.style.display = "none";
-}
-
-const pendingMessage =
-    document.getElementById("paymentPendingMessage");
-
-if (pendingMessage) {
-    pendingMessage.style.display = "none";
-}
-
-const orderStatus =
-    document.getElementById("orderStatus");
-
-if (orderStatus) {
-    orderStatus.remove();
-}
-
-const placeOrderButton =
-    document.querySelector('.summary button[onclick="placeOrder()"]');
-
-if (placeOrderButton) {
-    placeOrderButton.style.display = "inline-block";
-}
+    if (placeOrderButton) {
+        placeOrderButton.style.display = "inline-block";
+    }
 
 }
 
@@ -130,157 +101,139 @@ if (placeOrderButton) {
 // ==========================================
 
 document.addEventListener(
-"DOMContentLoaded",
-function () {
+    "DOMContentLoaded",
+    function () {
 
-    const savedPackage =
-        localStorage.getItem(
-            "jomzSelectedPackage"
-        );
-
-    const savedPrice =
-        localStorage.getItem(
-            "jomzSelectedPrice"
-        );
-
-    const savedPlayerID =
-        localStorage.getItem(
-            "jomzPlayerID"
-        );
-
-    const savedOrderID =
-        localStorage.getItem(
-            "jomzOrderId"
-        );
-
-
-    if (
-        savedPackage &&
-        savedPrice
-    ) {
-
-        selectedPackage =
-            savedPackage;
-
-        selectedPrice =
-            savedPrice;
-
-
-        const displayPackage =
-            document.getElementById(
-                "displayPackage"
+        const savedPackage =
+            localStorage.getItem(
+                "jomzSelectedPackage"
             );
 
-        const displayPrice =
-            document.getElementById(
-                "displayPrice"
+        const savedPrice =
+            localStorage.getItem(
+                "jomzSelectedPrice"
             );
 
+        const savedPlayerID =
+            localStorage.getItem(
+                "jomzPlayerID"
+            );
 
-        if (displayPackage) {
+        const savedOrderID =
+            localStorage.getItem(
+                "jomzOrderId"
+            );
 
-            displayPackage.textContent =
+        if (
+            savedPackage &&
+            savedPrice
+        ) {
+
+            selectedPackage =
                 savedPackage;
 
-        }
-
-
-        if (displayPrice) {
-
-            displayPrice.textContent =
+            selectedPrice =
                 savedPrice;
 
-        }
+            const displayPackage =
+                document.getElementById(
+                    "displayPackage"
+                );
 
+            const displayPrice =
+                document.getElementById(
+                    "displayPrice"
+                );
 
-        document.querySelectorAll(
-            ".package"
-        ).forEach(item => {
+            if (displayPackage) {
+                displayPackage.textContent =
+                    savedPackage;
+            }
 
-            item.classList.remove(
-                "selected"
-            );
+            if (displayPrice) {
+                displayPrice.textContent =
+                    savedPrice;
+            }
 
-            const itemText =
-                item.textContent || "";
+            document.querySelectorAll(
+                ".package"
+            ).forEach(item => {
 
-            if (
-                itemText.includes(
-                    savedPackage
-                )
-            ) {
-
-                item.classList.add(
+                item.classList.remove(
                     "selected"
                 );
 
+                const itemText =
+                    item.textContent || "";
+
+                if (
+                    itemText.includes(
+                        savedPackage
+                    )
+                ) {
+
+                    item.classList.add(
+                        "selected"
+                    );
+
+                }
+
+            });
+
+        }
+
+        if (savedPlayerID) {
+
+            const playerID =
+                document.getElementById(
+                    "playerID"
+                );
+
+            const displayID =
+                document.getElementById(
+                    "displayID"
+                );
+
+            if (playerID) {
+                playerID.value =
+                    savedPlayerID;
             }
 
-        });
-
-    }
-
-
-    if (savedPlayerID) {
-
-        const playerID =
-            document.getElementById(
-                "playerID"
-            );
-
-        const displayID =
-            document.getElementById(
-                "displayID"
-            );
-
-
-        if (playerID) {
-
-            playerID.value =
-                savedPlayerID;
+            if (displayID) {
+                displayID.textContent =
+                    savedPlayerID;
+            }
 
         }
 
+        if (savedOrderID) {
 
-        if (displayID) {
+            orderCreated = true;
 
-            displayID.textContent =
-                savedPlayerID;
+            const payButton =
+                document.getElementById(
+                    "payButton"
+                );
 
-        }
+            if (payButton) {
+                payButton.style.display =
+                    "none";
+            }
 
-    }
+            const savedPaymentStage =
+                localStorage.getItem(
+                    "jomzPaymentStage"
+                ) || "pay";
 
-
-    if (savedOrderID) {
-
-        orderCreated = true;
-
-
-        const payButton =
-            document.getElementById(
-                "payButton"
+            setPaymentStage(
+                savedPaymentStage
             );
 
-
-        if (payButton) {
-
-            payButton.style.display =
-                "none";
+            checkOrderStatus();
 
         }
 
-        const savedPaymentStage =
-            localStorage.getItem("jomzPaymentStage") || "pay";
-
-        setPaymentStage(savedPaymentStage);
-
-        checkOrderStatus();
-
     }
-
-}
-
 );
 
 // ==========================================
@@ -288,80 +241,68 @@ function () {
 // ==========================================
 
 function selectPackage(
-element,
-packageName,
-price
+    element,
+    packageName,
+    price
 ) {
 
-document.querySelectorAll(
-    ".package"
-).forEach(item => {
+    document.querySelectorAll(
+        ".package"
+    ).forEach(item => {
 
-    item.classList.remove(
-        "selected"
-    );
+        item.classList.remove(
+            "selected"
+        );
 
-});
+    });
 
+    if (element) {
 
-if (element) {
+        element.classList.add(
+            "selected"
+        );
 
-    element.classList.add(
-        "selected"
-    );
+    }
 
-}
-
-
-selectedPackage =
-    packageName;
-
-selectedPrice =
-    price;
-
-
-localStorage.setItem(
-    "jomzSelectedPackage",
-    packageName
-);
-
-
-localStorage.setItem(
-    "jomzSelectedPrice",
-    price
-);
-
-
-localStorage.removeItem(
-    "topupCompletedShown"
-);
-
-
-const displayPackage =
-    document.getElementById(
-        "displayPackage"
-    );
-
-const displayPrice =
-    document.getElementById(
-        "displayPrice"
-    );
-
-
-if (displayPackage) {
-
-    displayPackage.textContent =
+    selectedPackage =
         packageName;
 
-}
-
-
-if (displayPrice) {
-
-    displayPrice.textContent =
+    selectedPrice =
         price;
 
-}
+    localStorage.setItem(
+        "jomzSelectedPackage",
+        packageName
+    );
+
+    localStorage.setItem(
+        "jomzSelectedPrice",
+        price
+    );
+
+    localStorage.removeItem(
+        "topupCompletedShown"
+    );
+
+    const displayPackage =
+        document.getElementById(
+            "displayPackage"
+        );
+
+    const displayPrice =
+        document.getElementById(
+            "displayPrice"
+        );
+
+    if (displayPackage) {
+        displayPackage.textContent =
+            packageName;
+    }
+
+    if (displayPrice) {
+        displayPrice.textContent =
+            price;
+    }
 
 }
 
@@ -370,48 +311,44 @@ if (displayPrice) {
 // ==========================================
 
 document.addEventListener(
-"DOMContentLoaded",
-function () {
+    "DOMContentLoaded",
+    function () {
 
-    const playerID =
-        document.getElementById(
-            "playerID"
-        );
+        const playerID =
+            document.getElementById(
+                "playerID"
+            );
 
+        if (playerID) {
 
-    if (playerID) {
+            playerID.addEventListener(
+                "input",
+                function () {
 
-        playerID.addEventListener(
-            "input",
-            function () {
+                    const displayID =
+                        document.getElementById(
+                            "displayID"
+                        );
 
-                const displayID =
-                    document.getElementById(
-                        "displayID"
+                    if (displayID) {
+
+                        displayID.textContent =
+                            this.value ||
+                            "Not entered";
+
+                    }
+
+                    localStorage.setItem(
+                        "jomzPlayerID",
+                        this.value
                     );
 
-
-                if (displayID) {
-
-                    displayID.textContent =
-                        this.value ||
-                        "Not entered";
-
                 }
+            );
 
-
-                localStorage.setItem(
-                    "jomzPlayerID",
-                    this.value
-                );
-
-            }
-        );
+        }
 
     }
-
-}
-
 );
 
 // ==========================================
@@ -420,38 +357,37 @@ function () {
 
 function scrollToTopUp() {
 
-const topup =
-    document.getElementById(
-        "topup"
-    );
+    const topup =
+        document.getElementById(
+            "topup"
+        );
 
+    if (topup) {
 
-if (topup) {
+        topup.scrollIntoView({
+            behavior: "smooth"
+        });
 
-    topup.scrollIntoView({
-
-        behavior:
-            "smooth"
-
-    });
+    }
 
 }
 
-}
 // ==========================================
 // SHOW ORDER CONFIRMATION
 // ==========================================
 
 function placeOrder() {
 
-    // Check if JOMZ SHOP is open
     if (!isPaymentActive()) {
 
         const payButton =
-            document.getElementById("payButton");
+            document.getElementById(
+                "payButton"
+            );
 
         if (payButton) {
-            payButton.style.display = "none";
+            payButton.style.display =
+                "none";
         }
 
         showOrderClosedPopup();
@@ -459,14 +395,13 @@ function placeOrder() {
         return;
     }
 
-
     const playerIDElement =
-        document.getElementById("playerID");
-
+        document.getElementById(
+            "playerID"
+        );
 
     const playerID =
         playerIDElement.value.trim();
-
 
     if (!playerID) {
 
@@ -475,9 +410,15 @@ function placeOrder() {
         );
 
         return;
-
     }
+    if (!/^\d{11}$/.test(playerID)) {
 
+    alert(
+        "Invalid Player ID. Please enter exactly 11 digits."
+    );
+
+    return;
+}
 
     if (!selectedPackage) {
 
@@ -486,15 +427,12 @@ function placeOrder() {
         );
 
         return;
-
     }
-
 
     const details =
         document.getElementById(
             "orderConfirmDetails"
         );
-
 
     if (details) {
 
@@ -513,20 +451,18 @@ function placeOrder() {
 
     }
 
-
     const popup =
         document.getElementById(
             "orderConfirmPopup"
         );
 
-
     if (popup) {
-
-        popup.style.display = "flex";
-
+        popup.style.display =
+            "flex";
     }
 
 }
+
 // ==========================================
 // CLOSE CONFIRMATION POPUP
 // ==========================================
@@ -539,13 +475,11 @@ function closeOrderConfirmPopup() {
         );
 
     if (popup) {
-
-        popup.style.display = "none";
-
+        popup.style.display =
+            "none";
     }
 
 }
-
 
 // ==========================================
 // CONFIRM ORDER
@@ -566,24 +500,26 @@ function confirmOrder() {
 function submitOrder() {
 
     const payButton =
-    document.getElementById("payButton");
+        document.getElementById(
+            "payButton"
+        );
 
-if (payButton) {
-    payButton.style.display = "none";
-}
-
-    // Check payment/order opening hours first
-    if (!isPaymentActive()) {
-        showOrderClosedPopup();
-        return;
+    if (payButton) {
+        payButton.style.display =
+            "none";
     }
 
+    if (!isPaymentActive()) {
+
+        showOrderClosedPopup();
+
+        return;
+    }
 
     const playerIDElement =
         document.getElementById(
             "playerID"
         );
-
 
     if (!playerIDElement) {
 
@@ -592,13 +528,10 @@ if (payButton) {
         );
 
         return;
-
     }
-
 
     const playerID =
         playerIDElement.value.trim();
-
 
     if (!playerID) {
 
@@ -607,9 +540,7 @@ if (payButton) {
         );
 
         return;
-
     }
-
 
     if (!selectedPackage) {
 
@@ -618,28 +549,21 @@ if (payButton) {
         );
 
         return;
-
     }
-
 
     localStorage.setItem(
         "jomzPlayerID",
         playerID
     );
 
-
     fetch(
         "/api/orders",
         {
-
-            method:
-                "POST",
+            method: "POST",
 
             headers: {
-
                 "Content-Type":
                     "application/json"
-
             },
 
             body: JSON.stringify({
@@ -657,7 +581,6 @@ if (payButton) {
                     selectedPrice
 
             })
-
         }
     )
 
@@ -684,14 +607,12 @@ if (payButton) {
                 data.orderId
             );
 
-
             orderCreated = true;
-
             notificationShown = false;
 
-
-            setPaymentStage("pay");
-
+            setPaymentStage(
+                "pay"
+            );
 
             alert(
                 "Order received successfully!\n\n" +
@@ -699,7 +620,6 @@ if (payButton) {
                 data.orderId +
                 "\nStatus: Pending"
             );
-
 
             checkOrderStatus();
 
@@ -735,7 +655,9 @@ if (payButton) {
 function checkOrderStatus() {
 
     const orderId =
-        localStorage.getItem("jomzOrderId");
+        localStorage.getItem(
+            "jomzOrderId"
+        );
 
     if (!orderId) {
         return;
@@ -745,43 +667,82 @@ function checkOrderStatus() {
         "/api/order-status/" +
         encodeURIComponent(orderId)
     )
+
     .then(response => {
 
         if (!response.ok) {
-            throw new Error("Status request failed");
+            throw new Error(
+                "Status request failed"
+            );
         }
 
         return response.json();
 
     })
+
     .then(data => {
 
         if (!data.success) {
             return;
         }
 
-        const status = data.status || "Pending";
+        const status =
+            data.status ||
+            "Pending";
 
-        if (status === "Payment Not Received") {
-            setPaymentStage("payment");
-            showOrderStatus(status);
+        const paymentStatus =
+            data.paymentStatus ||
+            "";
+
+        if (
+            paymentStatus ===
+            "Payment Not Received"
+        ) {
+
+            setPaymentStage(
+                "payment"
+            );
+
+            showOrderStatus(
+                "Payment Not Received"
+            );
+
             return;
         }
 
-        if (status === "Completed") {
-            handleCompletedOrder(orderId);
+        if (
+            status ===
+            "Completed"
+        ) {
+
+            handleCompletedOrder(
+                orderId
+            );
+
             return;
         }
 
         const paymentStage =
-            localStorage.getItem("jomzPaymentStage") || "pay";
+            localStorage.getItem(
+                "jomzPaymentStage"
+            ) || "pay";
 
-        setPaymentStage(paymentStage);
-        showOrderStatus(status);
+        setPaymentStage(
+            paymentStage
+        );
+
+        showOrderStatus(
+            status
+        );
 
     })
+
     .catch(error => {
-        console.log("Could not check order status.");
+
+        console.log(
+            "Could not check order status."
+        );
+
     });
 
 }
@@ -803,37 +764,50 @@ function setPaymentStage(stage) {
         );
 
     const payButton =
-        document.getElementById("payButton");
+        document.getElementById(
+            "payButton"
+        );
 
     const paymentBox =
-        document.getElementById("paymentBox");
+        document.getElementById(
+            "paymentBox"
+        );
 
     const transferButton =
-        document.getElementById("confirmTransferButton");
+        document.getElementById(
+            "confirmTransferButton"
+        );
 
     const pendingMessage =
-        document.getElementById("paymentPendingMessage");
+        document.getElementById(
+            "paymentPendingMessage"
+        );
 
     if (stage === "order") {
 
         if (placeOrderButton) {
-            placeOrderButton.style.display = "inline-block";
+            placeOrderButton.style.display =
+                "inline-block";
         }
 
         if (payButton) {
-            payButton.style.display = "none";
+            payButton.style.display =
+                "none";
         }
 
         if (paymentBox) {
-            paymentBox.style.display = "none";
+            paymentBox.style.display =
+                "none";
         }
 
         if (transferButton) {
-            transferButton.style.display = "none";
+            transferButton.style.display =
+                "none";
         }
 
         if (pendingMessage) {
-            pendingMessage.style.display = "none";
+            pendingMessage.style.display =
+                "none";
         }
 
         return;
@@ -842,23 +816,28 @@ function setPaymentStage(stage) {
     if (stage === "pay") {
 
         if (placeOrderButton) {
-            placeOrderButton.style.display = "none";
+            placeOrderButton.style.display =
+                "none";
         }
 
         if (payButton) {
-            payButton.style.display = "inline-block";
+            payButton.style.display =
+                "inline-block";
         }
 
         if (paymentBox) {
-            paymentBox.style.display = "none";
+            paymentBox.style.display =
+                "none";
         }
 
         if (transferButton) {
-            transferButton.style.display = "none";
+            transferButton.style.display =
+                "none";
         }
 
         if (pendingMessage) {
-            pendingMessage.style.display = "none";
+            pendingMessage.style.display =
+                "none";
         }
 
         return;
@@ -867,23 +846,28 @@ function setPaymentStage(stage) {
     if (stage === "payment") {
 
         if (placeOrderButton) {
-            placeOrderButton.style.display = "none";
+            placeOrderButton.style.display =
+                "none";
         }
 
         if (payButton) {
-            payButton.style.display = "none";
+            payButton.style.display =
+                "none";
         }
 
         if (paymentBox) {
-            paymentBox.style.display = "block";
+            paymentBox.style.display =
+                "block";
         }
 
         if (transferButton) {
-            transferButton.style.display = "inline-block";
+            transferButton.style.display =
+                "inline-block";
         }
 
         if (pendingMessage) {
-            pendingMessage.style.display = "none";
+            pendingMessage.style.display =
+                "none";
         }
 
         return;
@@ -892,25 +876,33 @@ function setPaymentStage(stage) {
     if (stage === "pending") {
 
         if (placeOrderButton) {
-            placeOrderButton.style.display = "none";
+            placeOrderButton.style.display =
+                "none";
         }
 
         if (payButton) {
-            payButton.style.display = "none";
+            payButton.style.display =
+                "none";
         }
 
         if (paymentBox) {
-            paymentBox.style.display = "block";
+            paymentBox.style.display =
+                "block";
         }
 
         if (transferButton) {
-            transferButton.style.display = "none";
+            transferButton.style.display =
+                "none";
         }
 
         if (pendingMessage) {
-            pendingMessage.style.display = "block";
+
+            pendingMessage.style.display =
+                "block";
+
             pendingMessage.textContent =
-                "⏳ Your top-up is still pending. Your payment is being checked.";
+                "⏳ Your payment is being checked. Please wait...";
+
         }
 
     }
@@ -921,23 +913,53 @@ function setPaymentStage(stage) {
 // HANDLE COMPLETED ORDER
 // ==========================================
 
-function handleCompletedOrder(completedOrderId) {
+function handleCompletedOrder(
+    completedOrderId
+) {
 
     if (!completedOrderId) {
+
         completedOrderId =
-            localStorage.getItem("jomzOrderId");
+            localStorage.getItem(
+                "jomzOrderId"
+            );
+
     }
 
+    
     if (completedOrderId) {
+
         localStorage.setItem(
             "jomzCompletedOrderId",
             completedOrderId
         );
+
     }
+if (
+    status ===
+    "Payment Confirmed"
+) {
 
-    showOrderStatus("Completed");
+    statusBox.innerHTML =
+        "🟢 <b>Payment Confirmed</b>" +
+        "<br><br>" +
+        "<span style='font-size:14px;color:#aaa;'>" +
+        "Your payment has been confirmed. " +
+        "Your Free Fire top-up is being processed." +
+        "</span>";
 
-    if (!localStorage.getItem("topupCompletedShown")) {
+    return;
+}
+    
+    showOrderStatus(
+        "Completed"
+    );
+
+    if (
+        !localStorage.getItem(
+            "topupCompletedShown"
+        )
+    ) {
 
         showCustomerMessagePopup(
             "🎉 TOP-UP COMPLETED!\n\nYour Free Fire diamonds have been successfully added to your account. Thank you for shopping with JOMZ SHOP! ❤️"
@@ -949,6 +971,7 @@ function handleCompletedOrder(completedOrderId) {
         );
 
         clearCompletedOrder();
+
     }
 
 }
@@ -960,25 +983,44 @@ function handleCompletedOrder(completedOrderId) {
 function showOrderStatus(status) {
 
     let statusBox =
-        document.getElementById("orderStatus");
+        document.getElementById(
+            "orderStatus"
+        );
 
     if (!statusBox) {
 
         statusBox =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        statusBox.id = "orderStatus";
-        statusBox.style.marginTop = "20px";
-        statusBox.style.padding = "15px";
-        statusBox.style.textAlign = "center";
-        statusBox.style.fontSize = "18px";
-        statusBox.style.borderRadius = "10px";
+        statusBox.id =
+            "orderStatus";
+
+        statusBox.style.marginTop =
+            "20px";
+
+        statusBox.style.padding =
+            "15px";
+
+        statusBox.style.textAlign =
+            "center";
+
+        statusBox.style.fontSize =
+            "18px";
+
+        statusBox.style.borderRadius =
+            "10px";
 
         const summary =
-            document.querySelector(".summary");
+            document.querySelector(
+                ".summary"
+            );
 
         if (summary) {
-            summary.appendChild(statusBox);
+            summary.appendChild(
+                statusBox
+            );
         }
 
     }
@@ -987,9 +1029,14 @@ function showOrderStatus(status) {
         return;
     }
 
-    if (status === "Payment Not Received") {
+    if (
+        status ===
+        "Payment Not Received"
+    ) {
 
-        setPaymentStage("payment");
+        setPaymentStage(
+            "payment"
+        );
 
         statusBox.innerHTML =
             "🔴 <b>Payment Not Received</b>" +
@@ -1002,24 +1049,70 @@ function showOrderStatus(status) {
         return;
     }
 
-    if (status === "Completed") {
+    // PAYMENT CONFIRMED
+if (
+    status ===
+    "Payment Confirmed"
+) {
 
-        statusBox.innerHTML =
-            "🟢 <b>Top-Up Completed!</b>" +
-            "<br><br>" +
-            "<button onclick=\"openReceipt()\" " +
-            "style=\"padding:12px 18px;" +
-            "border:none;" +
-            "border-radius:8px;" +
-            "cursor:pointer;" +
-            "font-weight:bold;\">" +
-            "🧾 View / Download Receipt" +
-            "</button>";
+    statusBox.innerHTML =
+        "🟢 <b>Payment has been confirmed now.</b>" +
+        "<br><br>" +
+        "<span style='font-size:14px;color:#aaa;'>" +
+        "Please wait while your top-up is being processed." +
+        "</span>";
 
-        return;
-    }
+    statusBox.style.display =
+        "block";
 
-    if (status === "Pending") {
+    return;
+}
+
+
+// COMPLETED
+if (
+    status ===
+    "Completed"
+) {
+
+    statusBox.innerHTML =
+        "🟢 <b>Top-Up Completed!</b>" +
+        "<br><br>" +
+        "<button onclick=\"openReceipt()\" " +
+        "style=\"padding:12px 18px;" +
+        "border:none;" +
+        "border-radius:8px;" +
+        "cursor:pointer;" +
+        "font-weight:bold;\">" +
+        "🧾 View / Download Receipt" +
+        "</button>";
+
+    return;
+}
+if (
+    status ===
+    "Payment Confirmed"
+) {
+
+    statusBox.innerHTML =
+        "🟢 <b>Payment has been confirmed.</b>" +
+        "<br><br>" +
+        "<span style='font-size:14px;color:#aaa;'>" +
+        "Please wait while your top-up is being processed." +
+        "</span>";
+
+    statusBox.style.display =
+        "block";
+
+    return;
+}
+
+// PENDING
+if (
+    status ===
+    "Pending"
+) {
+        
 
         statusBox.innerHTML =
             "🟡 <b>Top-Up Pending...</b>";
@@ -1041,17 +1134,24 @@ function showOrderStatus(status) {
 function startPayment() {
 
     const orderId =
-        localStorage.getItem("jomzOrderId");
+        localStorage.getItem(
+            "jomzOrderId"
+        );
 
     if (!orderId) {
-        alert("Please place an order first.");
+
+        alert(
+            "Please place an order first."
+        );
+
         return;
     }
 
-    setPaymentStage("payment");
+    setPaymentStage(
+        "payment"
+    );
 
 }
-
 
 // ==========================================
 // PAYMENT NOTIFICATION
@@ -1060,14 +1160,27 @@ function startPayment() {
 function confirmTransfer() {
 
     const orderId =
-        localStorage.getItem("jomzOrderId");
+        localStorage.getItem(
+            "jomzOrderId"
+        );
 
     if (!orderId) {
-        alert("Please place an order first.");
+
+        alert(
+            "Please place an order first."
+        );
+
         return;
     }
+// Remove the old "Payment Not Received"
+// status message when customer retries payment
+const oldStatusBox =
+    document.getElementById("orderStatus");
 
-
+if (oldStatusBox) {
+    oldStatusBox.remove();
+}
+    
     const popup =
         document.getElementById(
             "whatsappPaymentPopup"
@@ -1083,80 +1196,119 @@ function confirmTransfer() {
             "notNowButton"
         );
 
+    if (
+        !popup ||
+        !notifyButton ||
+        !notNowButton
+    ) {
 
-    if (!popup || !notifyButton || !notNowButton) {
-        alert("Payment notification system is unavailable.");
-        return;
-    }
-
-
-    // Show WhatsApp popup
-    popup.style.display = "block";
-
-
-    // YES, NOTIFY JOMZ
-    notifyButton.onclick = function () {
-
-        const message =
-            "Hello JOMZ, I've made payment for my order.\n\n" +
-
-            "Order ID: " +
-            orderId +
-            "\n" +
-
-            "Player ID: " +
-            document.getElementById("playerID").value +
-            "\n" +
-
-            "Package: " +
-            selectedPackage +
-            "\n" +
-
-            "Amount: ₦" +
-            Number(selectedPrice).toLocaleString() +
-            "\n\n" +
-
-            "Please confirm my payment and process my order. Thank you.";
-
-
-        const whatsappURL =
-            "https://wa.me/2349042529385?text=" +
-            encodeURIComponent(message);
-
-
-        window.open(
-            whatsappURL,
-            "_blank"
+        alert(
+            "Payment notification system is unavailable."
         );
 
+        return;
+    }
+const paymentInstruction =
+    document.querySelector(".payment-instruction");
 
-        // Continue the existing payment notification
-        sendPaymentNotification(orderId);
+if (paymentInstruction) {
+    paymentInstruction.style.display = "none";
+}
+    popup.style.display =
+        "block";
 
-    };
+    notifyButton.onclick =
+        function () {
 
+            const playerIDElement =
+                document.getElementById(
+                    "playerID"
+                );
 
-    // NOT NOW
-    notNowButton.onclick = function () {
+            const playerID =
+                playerIDElement
+                    ? playerIDElement.value
+                    : "";
 
-        popup.style.display = "none";
+            const message =
+                "Hello JOMZ, I've made payment for my order.\n\n" +
 
-        // Continue the existing payment notification
-        sendPaymentNotification(orderId);
+                "Order ID: " +
+                orderId +
+                "\n" +
 
-    };
+                "Player ID: " +
+                playerID +
+                "\n" +
+
+                "Package: " +
+                selectedPackage +
+                "\n" +
+
+                "Amount: ₦" +
+                Number(
+                    selectedPrice
+                ).toLocaleString() +
+                "\n\n" +
+
+                "Please confirm my payment and process my order. Thank you.";
+
+            const whatsappURL =
+                "https://wa.me/2349042529385?text=" +
+                encodeURIComponent(
+                    message
+                );
+
+            window.open(
+                whatsappURL,
+                "_blank"
+            );
+
+            sendPaymentNotification(
+                orderId
+            );
+
+        };
+
+    notNowButton.onclick =
+        function () {
+
+            popup.style.display =
+                "none";
+
+            sendPaymentNotification(
+                orderId
+            );
+
+        };
 
 }
-
 
 // ==========================================
 // SEND PAYMENT NOTIFICATION TO SERVER
 // ==========================================
+function sendPaymentNotification(
+    orderId
+) {
 
-function sendPaymentNotification(orderId) {
+    // Remove old status message
+    const oldStatusBox =
+        document.getElementById(
+            "orderStatus"
+        );
 
-    setPaymentStage("pending");
+    if (oldStatusBox) {
+        oldStatusBox.remove();
+    }
 
+    setPaymentStage(
+        "pending"
+    );
+
+    const paymentInstruction = document.querySelector(".payment-instruction");
+    if (paymentInstruction) {
+        paymentInstruction.style.display = "none";
+    }
 
     fetch(
         "/api/orders/" +
@@ -1164,30 +1316,41 @@ function sendPaymentNotification(orderId) {
         "/payment",
         {
             method: "PUT",
+
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type":
+                    "application/json"
             }
         }
     )
+
     .then(response => {
 
         if (!response.ok) {
+
             throw new Error(
                 "Payment notification failed"
             );
+
         }
 
         return response.json();
 
     })
+
     .then(data => {
 
         if (data.success) {
+
             checkOrderStatus();
+
         }
+
         else {
 
-            setPaymentStage("payment");
+            setPaymentStage(
+                "payment"
+            );
 
             alert(
                 data.message ||
@@ -1197,11 +1360,14 @@ function sendPaymentNotification(orderId) {
         }
 
     })
+
     .catch(error => {
 
         console.error(error);
 
-        setPaymentStage("payment");
+        setPaymentStage(
+            "payment"
+        );
 
         alert(
             "Could not send payment notification."
@@ -1210,6 +1376,7 @@ function sendPaymentNotification(orderId) {
     });
 
 }
+
 // ==========================================
 // COPY ACCOUNT NUMBER
 // ==========================================
@@ -1221,7 +1388,6 @@ function copyAccountNumber() {
             "accountNumber"
         );
 
-
     if (!accountNumber) {
 
         alert(
@@ -1229,9 +1395,7 @@ function copyAccountNumber() {
         );
 
         return;
-
     }
-
 
     navigator.clipboard.writeText(
         accountNumber.textContent.trim()
@@ -1254,117 +1418,144 @@ function copyAccountNumber() {
     });
 
 }
+
 // ==========================================
-// AUTOMATIC STATUS CHECK
+// AUTOMATIC STATUS CHECK + CUSTOMER POPUPS
 // ==========================================
+
 
 function checkPaymentConfirmation() {
 
-if (!orderCreated) {
-
-    return;
-
-}
-
-
-const orderId =
-    localStorage.getItem(
-        "jomzOrderId"
-    );
-
-
-if (!orderId) {
-
-    return;
-
-}
-
-
-fetch(
-    "/api/order-status/" +
-    orderId
-)
-
-.then(response => {
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Status check failed"
-        );
-
-    }
-
-    return response.json();
-
-})
-
-.then(data => {
-
-    if (!data.success) {
-
+    if (!orderCreated) {
         return;
-
     }
 
-// ==========================================
-// CUSTOMER NOTIFICATION
-// ==========================================
+    const orderId = localStorage.getItem("jomzOrderId");
 
-if (data.notification) {
-
-    const notificationKey =
-        "jomzNotification_" + orderId;
-
-    const alreadyShown =
-        localStorage.getItem(notificationKey);
-
-    if (alreadyShown !== data.notification) {
-
-        showCustomerMessagePopup(data.notification);
-
-        localStorage.setItem(
-            notificationKey,
-            data.notification
-        );
-
+    if (!orderId) {
+        return;
     }
 
-}
+    fetch("/api/order-status/" + encodeURIComponent(orderId))
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Status check failed");
+        }
+        return response.json();
+    })
+    .then(data => {
 
-    // ORDER COMPLETED
+        if (!data.success) {
+            return;
+        }
 
-    if (
+        const notification = data.notification || "";
 
-        data.status ===
-        "Completed"
+        const notificationId =
+            data.notificationId ||
+            (
+                data.order &&
+                data.order.notificationId
+                    ? data.order.notificationId
+                    : ""
+            );
 
-    ) {
+        if (notification) {
 
-        handleCompletedOrder(
-            orderId
-        );
+            const notificationKey =
+                "jomzNotification_" + orderId;
 
-    }
+            const currentKey =
+                notificationId ||
+                notification;
 
-    else {
+            const alreadyShown =
+                localStorage.getItem(notificationKey);
+
+            if (alreadyShown !== currentKey) {
+
+                showCustomerMessagePopup(
+                    notification
+                );
+
+                localStorage.setItem(
+                    notificationKey,
+                    currentKey
+                );
+            }
+        }
+
+        if (
+            data.paymentStatus ===
+            "Payment Not Received"
+        ) {
+
+            setPaymentStage("payment");
+
+            const paymentInstruction =
+                document.querySelector(
+                    ".payment-instruction"
+                );
+
+            if (paymentInstruction) {
+                paymentInstruction.style.display =
+                    "flex";
+            }
+
+            showOrderStatus(
+                "Payment Not Received"
+            );
+
+            return;
+        }
+
+        if (
+            data.status ===
+            "Completed"
+        ) {
+
+            handleCompletedOrder(
+                orderId
+            );
+
+            return;
+        }
+
+        if (
+            data.paymentStatus ===
+            "Paid"
+        ) {
+
+            setPaymentStage("pending");
+
+            const pendingMessage =
+                document.getElementById(
+                    "paymentPendingMessage"
+                );
+
+            if (pendingMessage) {
+                pendingMessage.style.display =
+                    "block";
+
+                pendingMessage.textContent =
+                    "🟢 Payment has been confirmed. Please wait while your top-up is being processed.";
+            }
+
+            return;
+        }
 
         showOrderStatus(
-            data.status
+            data.status || "Pending"
         );
 
-    }
+    })
+    .catch(error => {
 
-})
+        console.log(
+            "Unable to check order status."
+        );
 
-.catch(error => {
-
-    console.log(
-        "Unable to check order status."
-    );
-
-});
-
+    });
 }
 
 // ==========================================
@@ -1372,11 +1563,8 @@ if (data.notification) {
 // ==========================================
 
 setInterval(
-
-checkPaymentConfirmation,
-
-5000
-
+    checkPaymentConfirmation,
+    5000
 );
 
 // ==========================================
@@ -1385,144 +1573,156 @@ checkPaymentConfirmation,
 
 function openReceipt() {
 
-const orderId =
-    localStorage.getItem(
-        "jomzCompletedOrderId"
-    );
+    const orderId =
+        localStorage.getItem(
+            "jomzCompletedOrderId"
+        );
 
+    if (!orderId) {
 
-if (!orderId) {
+        alert(
+            "Completed order receipt not found."
+        );
 
-    alert(
-        "Completed order receipt not found."
-    );
+        return;
+    }
 
-    return;
-
-}
-
-
-window.location.href =
-    "receipt.html?id=" +
-    encodeURIComponent(
-        orderId
-    );
+    window.location.href =
+        "receipt.html?id=" +
+        encodeURIComponent(
+            orderId
+        );
 
 }
 
-
-
-// =================================
+// ==========================================
 // ACTIVE NAVIGATION
-// =================================
+// ==========================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
         const navLinks =
-            document.querySelectorAll("nav a");
-
-
-        navLinks.forEach(function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    navLinks.forEach(
-                        function (item) {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                    this.classList.add(
-                        "active"
-                    );
-
-                }
+            document.querySelectorAll(
+                "nav a"
             );
 
-        });
+        navLinks.forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navLinks.forEach(
+                            function (item) {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+                        this.classList.add(
+                            "active"
+                        );
+
+                    }
+                );
+
+            }
+        );
 
     }
 );
 
-// =================================
+// ==========================================
 // AUTOMATIC ACTIVE NAVIGATION
-// =================================
+// ==========================================
 
-window.addEventListener("scroll", function () {
+window.addEventListener(
+    "scroll",
+    function () {
 
-    const sections =
-        document.querySelectorAll("section[id]");
+        const sections =
+            document.querySelectorAll(
+                "section[id]"
+            );
 
-    const navLinks =
-        document.querySelectorAll("nav a");
+        const navLinks =
+            document.querySelectorAll(
+                "nav a"
+            );
 
-    let currentSection = "";
+        let currentSection =
+            "";
 
-    const scrollPosition =
-        window.scrollY +
-        window.innerHeight / 2;
+        const scrollPosition =
+            window.scrollY +
+            window.innerHeight / 2;
 
+        sections.forEach(
+            function (section) {
 
-    sections.forEach(function (section) {
+                const sectionTop =
+                    section.offsetTop;
 
-        const sectionTop =
-            section.offsetTop;
+                const sectionBottom =
+                    sectionTop +
+                    section.offsetHeight;
 
-        const sectionBottom =
-            sectionTop +
-            section.offsetHeight;
+                if (
+                    scrollPosition >= sectionTop &&
+                    scrollPosition < sectionBottom
+                ) {
 
+                    currentSection =
+                        section.id;
 
-        if (
-            scrollPosition >= sectionTop &&
-            scrollPosition < sectionBottom
-        ) {
+                }
 
-            currentSection =
-                section.id;
+            }
+        );
 
-        }
+        navLinks.forEach(
+            function (link) {
 
-    });
+                link.classList.remove(
+                    "active"
+                );
 
+                if (
+                    link.getAttribute(
+                        "href"
+                    ) ===
+                    "#" + currentSection
+                ) {
 
-    navLinks.forEach(function (link) {
+                    link.classList.add(
+                        "active"
+                    );
 
-        link.classList.remove("active");
+                }
 
-        if (
-            link.getAttribute("href") ===
-            "#" + currentSection
-        ) {
+            }
+        );
 
-            link.classList.add("active");
+    }
+);
 
-        }
-
-    });
-
-});
-
-
+// ==========================================
 // RUN ONCE WHEN PAGE LOADS
+// ==========================================
 
 window.dispatchEvent(
     new Event("scroll")
 );
 
-
-// =================================
+// ==========================================
 // SCROLL REVEAL ANIMATION
-// =================================
+// ==========================================
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1532,7 +1732,6 @@ document.addEventListener(
             document.querySelectorAll(
                 ".reveal"
             );
-
 
         function revealOnScroll() {
 
@@ -1544,7 +1743,6 @@ document.addEventListener(
 
                     const screenHeight =
                         window.innerHeight;
-
 
                     if (
                         position.top <
@@ -1562,109 +1760,150 @@ document.addEventListener(
 
         }
 
-
         window.addEventListener(
             "scroll",
             revealOnScroll
         );
-
 
         revealOnScroll();
 
     }
 );
 
-// =================================
+// ==========================================
 // JOMZ SCROLL TO TOP
-// =================================
+// ==========================================
 
 const scrollTopBtn =
-    document.getElementById("scrollTopBtn");
-
-window.addEventListener("scroll", function () {
-
-    if (window.scrollY > 400) {
-        scrollTopBtn.classList.add("show");
-    } else {
-        scrollTopBtn.classList.remove("show");
-    }
-
-});
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-// JOMZ SHOP LOADING + PAYMENT SCHEDULE
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const loader =
-        document.getElementById("jomzLoader");
-
-    const paymentPopup =
-        document.getElementById(
-            "paymentSchedulePopup"
-        );
-
-    if (!loader) {
-        console.log(
-            "JOMZ LOADER NOT FOUND"
-        );
-        return;
-    }
-
-    console.log(
-        "JOMZ LOADER FOUND"
+    document.getElementById(
+        "scrollTopBtn"
     );
 
+window.addEventListener(
+    "scroll",
+    function () {
 
-    setTimeout(function () {
+        if (
+            scrollTopBtn
+        ) {
 
-        // Hide the loader
-        loader.classList.add("hide");
+            if (
+                window.scrollY >
+                400
+            ) {
 
-        setTimeout(() => {
-
-            const popup =
-                document.getElementById(
-                    "paymentSchedulePopup"
+                scrollTopBtn.classList.add(
+                    "show"
                 );
 
-            if (popup) {
-                popup.style.display =
-                    "flex";
             }
 
-        }, 500);
+            else {
 
+                scrollTopBtn.classList.remove(
+                    "show"
+                );
 
-        // Show payment schedule
-        // immediately after loader finishes
-        if (paymentPopup) {
-
-            paymentPopup.style.display =
-                "flex";
+            }
 
         }
 
-    }, 3000);
+    }
+);
 
-});
+function scrollToTop() {
 
+    window.scrollTo({
 
-// ===============================
+        top: 0,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+// ==========================================
+// JOMZ SHOP LOADING + PAYMENT SCHEDULE
+// ==========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const loader =
+            document.getElementById(
+                "jomzLoader"
+            );
+
+        const paymentPopup =
+            document.getElementById(
+                "paymentSchedulePopup"
+            );
+
+        if (!loader) {
+
+            console.log(
+                "JOMZ LOADER NOT FOUND"
+            );
+
+            return;
+        }
+
+        console.log(
+            "JOMZ LOADER FOUND"
+        );
+
+        setTimeout(
+            function () {
+
+                loader.classList.add(
+                    "hide"
+                );
+
+                setTimeout(
+                    () => {
+
+                        const popup =
+                            document.getElementById(
+                                "paymentSchedulePopup"
+                            );
+
+                        if (popup) {
+
+                            popup.style.display =
+                                "flex";
+
+                        }
+
+                    },
+                    500
+                );
+
+                if (paymentPopup) {
+
+                    paymentPopup.style.display =
+                        "flex";
+
+                }
+
+            },
+            3000
+        );
+
+    }
+);
+
+// ==========================================
 // JOMZ SHOP PAYMENT SCHEDULE
-// ===============================
+// ==========================================
 
 function isPaymentActive() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    // Nigeria time (WAT)
     const nigeriaTime =
         new Date(
             now.toLocaleString(
@@ -1682,11 +1921,6 @@ function isPaymentActive() {
     const hour =
         nigeriaTime.getHours();
 
-    // Sunday = 0
-    // Monday = 1
-    // Saturday = 6
-
-    // Monday - Saturday, 8 AM - 8 PM
     return (
         day >= 1 &&
         day <= 6 &&
@@ -1696,10 +1930,9 @@ function isPaymentActive() {
 
 }
 
-
-// ===============================
+// ==========================================
 // CLOSE PAYMENT POPUP
-// ===============================
+// ==========================================
 
 function closePaymentPopup() {
 
@@ -1717,10 +1950,9 @@ function closePaymentPopup() {
 
 }
 
-
-// ===============================
+// ==========================================
 // SHOW ORDER CLOSED POPUP
-// ===============================
+// ==========================================
 
 function showOrderClosedPopup() {
 
@@ -1738,9 +1970,10 @@ function showOrderClosedPopup() {
         !popup ||
         !message
     ) {
-        return;
-    }
 
+        return;
+
+    }
 
     const now =
         new Date();
@@ -1756,18 +1989,14 @@ function showOrderClosedPopup() {
             )
         );
 
-
     const day =
         nigeriaTime.getDay();
 
     const hour =
         nigeriaTime.getHours();
 
-
     let nextOpening;
 
-
-    // Monday - Friday before 8 AM
     if (
         day >= 1 &&
         day <= 5 &&
@@ -1779,7 +2008,6 @@ function showOrderClosedPopup() {
 
     }
 
-    // Monday - Friday after 8 PM
     else if (
         day >= 1 &&
         day <= 5 &&
@@ -1791,7 +2019,6 @@ function showOrderClosedPopup() {
 
     }
 
-    // Saturday before 8 AM
     else if (
         day === 6 &&
         hour < 8
@@ -1802,7 +2029,6 @@ function showOrderClosedPopup() {
 
     }
 
-    // Saturday after 8 PM
     else if (
         day === 6 &&
         hour >= 20
@@ -1813,14 +2039,12 @@ function showOrderClosedPopup() {
 
     }
 
-    // Sunday
     else {
 
         nextOpening =
             "Monday at 8:00 AM";
 
     }
-
 
     message.innerHTML =
         "Orders are currently closed.<br><br>" +
@@ -1830,16 +2054,14 @@ function showOrderClosedPopup() {
         nextOpening +
         ".</strong>";
 
-
     popup.style.display =
         "flex";
 
 }
 
-
-// ===============================
+// ==========================================
 // CLOSE ORDER CLOSED POPUP
-// ===============================
+// ==========================================
 
 function closeOrderClosedPopup() {
 
@@ -1856,7 +2078,6 @@ function closeOrderClosedPopup() {
     }
 
 }
-
 
 // ==========================================
 // SHOW PAYMENT SCHEDULE AFTER LOADER
@@ -1877,13 +2098,13 @@ function showPaymentScheduleAfterLoader() {
     }
 
 }
-
-
 // ==========================================
 // JOMZ SHOP CUSTOMER MESSAGE SYSTEM
 // ==========================================
 
-function showCustomerMessagePopup(message) {
+function showCustomerMessagePopup(
+    message
+) {
 
     const popup =
         document.getElementById(
@@ -1895,11 +2116,107 @@ function showCustomerMessagePopup(message) {
             "jomzCustomerMessageText"
         );
 
-    if (!popup || !messageText) {
+    const title =
+        document.getElementById(
+            "jomzCustomerMessageTitle"
+        );
+    const icon =
+    document.getElementById(
+        "jomzCustomerMessageIcon"
+    );
+
+    if (
+        !popup ||
+        !messageText
+    ) {
 
         return;
 
     }
+
+    let popupTitle =
+        "JOMZ SHOP";
+
+    const lowerMessage =
+        String(message).toLowerCase();
+
+    if (
+        lowerMessage.includes(
+            "payment has not been received"
+        )
+    ) {
+
+        popupTitle =
+            "PAYMENT NOT RECEIVED";
+
+    }
+
+    else if (
+        lowerMessage.includes(
+            "payment confirmed"
+        )
+    ) {
+
+        popupTitle =
+            "PAYMENT CONFIRMED";
+
+    }
+
+    else if (
+        lowerMessage.includes(
+            "top-up has been completed"
+        )
+    ) {
+
+        popupTitle =
+            "TOP UP COMPLETED";
+
+    }
+
+    else if (
+        lowerMessage.includes(
+            "top up has been completed"
+        )
+    ) {
+
+        popupTitle =
+            "TOP UP COMPLETED";
+
+    }
+
+    if (title) {
+
+        title.textContent =
+            popupTitle;
+
+    }
+    if (icon) {
+
+    if (
+        popupTitle ===
+        "PAYMENT NOT RECEIVED"
+    ) {
+        icon.textContent = "⚠️";
+    }
+
+    else if (
+        popupTitle ===
+        "PAYMENT CONFIRMED"
+    ) {
+        icon.textContent = "✓";
+    }
+
+    else if (
+        popupTitle ===
+        "TOP UP COMPLETED"
+    ) {
+        icon.textContent = "🎉";
+    }
+
+    else {
+        icon.textContent = "ℹ️";
+    }
+}
 
     messageText.textContent =
         message;
@@ -1909,6 +2226,9 @@ function showCustomerMessagePopup(message) {
 
 }
 
+// ==========================================
+// CLOSE CUSTOMER MESSAGE POPUP
+// ==========================================
 
 function closeCustomerMessagePopup() {
 
@@ -1926,9 +2246,13 @@ function closeCustomerMessagePopup() {
 
 }
 
-
 // ==========================================
-// CHECK CUSTOMER ORDER MESSAGE
+// OLD CUSTOMER MESSAGE SYSTEM
+// ==========================================
+// Kept for compatibility.
+// It is NOT automatically called.
+// checkPaymentConfirmation() is now the
+// only automatic customer message checker.
 // ==========================================
 
 async function checkCustomerMessage() {
@@ -1939,9 +2263,7 @@ async function checkCustomerMessage() {
         );
 
     if (!orderId) {
-
         return;
-
     }
 
     try {
@@ -1953,9 +2275,7 @@ async function checkCustomerMessage() {
             );
 
         if (!response.ok) {
-
             return;
-
         }
 
         const data =
@@ -1965,29 +2285,20 @@ async function checkCustomerMessage() {
             !data.success ||
             !data.order
         ) {
-
             return;
-
         }
-
 
         const notification =
             data.order.notification;
 
-
         if (!notification) {
-
             return;
-
         }
 
-
-        // Check if this is a new message
         const lastMessage =
             localStorage.getItem(
                 "jomzLastCustomerMessage"
             );
-
 
         if (
             notification ===
@@ -1998,14 +2309,10 @@ async function checkCustomerMessage() {
 
         }
 
-
-        // Save the message so it
-        // doesn't keep appearing
         localStorage.setItem(
             "jomzLastCustomerMessage",
             notification
         );
-
 
         showCustomerMessagePopup(
             notification
@@ -2024,19 +2331,13 @@ async function checkCustomerMessage() {
 
 }
 
-
 // ==========================================
-// CHECK EVERY 5 SECONDS
+// IMPORTANT
 // ==========================================
-
-setInterval(
-    checkCustomerMessage,
-    5000
-);
-
-
-// Check once when page loads
-checkCustomerMessage();
+// DO NOT call checkCustomerMessage() here.
+// The automatic notification system above
+// already uses checkPaymentConfirmation().
+// ==========================================
 
 
 // ==========================================
@@ -2044,7 +2345,6 @@ checkCustomerMessage();
 // ==========================================
 
 let customerNotifications = [];
-
 
 // ==========================================
 // GET CURRENT ORDER ID
@@ -2064,7 +2364,6 @@ function getCustomerOrderId() {
 
 }
 
-
 // ==========================================
 // LOAD CUSTOMER NOTIFICATIONS
 // ==========================================
@@ -2075,11 +2374,8 @@ async function loadCustomerNotifications() {
         getCustomerOrderId();
 
     if (!orderId) {
-
         return;
-
     }
-
 
     try {
 
@@ -2091,28 +2387,19 @@ async function loadCustomerNotifications() {
                 )
             );
 
-
         if (!response.ok) {
-
             return;
-
         }
-
 
         const data =
             await response.json();
 
-
         if (!data.success) {
-
             return;
-
         }
-
 
         customerNotifications =
             data.notifications || [];
-
 
         updateNotificationBell();
 
@@ -2142,20 +2429,15 @@ function updateNotificationBell() {
             "notificationBadge"
         );
 
-
     if (!badge) {
-
         return;
-
     }
-
 
     const unreadCount =
         customerNotifications.filter(
             notification =>
                 !notification.read_at
         ).length;
-
 
     if (unreadCount > 0) {
 
@@ -2181,7 +2463,6 @@ function updateNotificationBell() {
 
 }
 
-
 // ==========================================
 // DISPLAY NOTIFICATIONS
 // ==========================================
@@ -2193,13 +2474,9 @@ function displayCustomerNotifications() {
             "notificationList"
         );
 
-
     if (!list) {
-
         return;
-
     }
-
 
     if (
         !customerNotifications ||
@@ -2216,10 +2493,8 @@ function displayCustomerNotifications() {
 
     }
 
-
     list.innerHTML =
         "";
-
 
     customerNotifications.forEach(
         function(notification) {
@@ -2229,12 +2504,10 @@ function displayCustomerNotifications() {
                     "div"
                 );
 
-
             item.className =
                 notification.read_at
                     ? "notification-item read"
                     : "notification-item unread";
-
 
             const date =
                 notification.created_at
@@ -2242,7 +2515,6 @@ function displayCustomerNotifications() {
                         notification.created_at
                     ).toLocaleString()
                     : "Unknown date";
-
 
             item.innerHTML = `
 
@@ -2254,7 +2526,8 @@ function displayCustomerNotifications() {
 
                 <p>
                     ${escapeNotificationHTML(
-                        notification.message || ""
+                        notification.message ||
+                        ""
                     )}
                 </p>
 
@@ -2263,7 +2536,6 @@ function displayCustomerNotifications() {
                 </small>
 
             `;
-
 
             item.onclick =
                 function() {
@@ -2274,7 +2546,6 @@ function displayCustomerNotifications() {
 
                 };
 
-
             list.appendChild(
                 item
             );
@@ -2283,7 +2554,6 @@ function displayCustomerNotifications() {
     );
 
 }
-
 
 // ==========================================
 // MARK NOTIFICATION AS READ
@@ -2294,11 +2564,8 @@ async function markNotificationAsRead(
 ) {
 
     if (!notificationId) {
-
         return;
-
     }
-
 
     try {
 
@@ -2318,10 +2585,8 @@ async function markNotificationAsRead(
                 }
             );
 
-
         const data =
             await response.json();
-
 
         if (
             response.ok &&
@@ -2335,7 +2600,6 @@ async function markNotificationAsRead(
                         Number(notificationId)
                 );
 
-
             if (notification) {
 
                 notification.read_at =
@@ -2345,7 +2609,6 @@ async function markNotificationAsRead(
                         : new Date().toISOString();
 
             }
-
 
             updateNotificationBell();
 
@@ -2366,7 +2629,6 @@ async function markNotificationAsRead(
 
 }
 
-
 // ==========================================
 // OPEN NOTIFICATION PANEL
 // ==========================================
@@ -2378,22 +2640,17 @@ function openNotificationPanel() {
             "notificationPanel"
         );
 
-
     if (!panel) {
-
         return;
-
     }
-
 
     panel.style.display =
         "block";
 
-
     loadCustomerNotifications();
+    loadOrderHistory();
 
 }
-
 
 // ==========================================
 // CLOSE NOTIFICATION PANEL
@@ -2406,7 +2663,6 @@ function closeNotificationPanel() {
             "notificationPanel"
         );
 
-
     if (panel) {
 
         panel.style.display =
@@ -2415,7 +2671,6 @@ function closeNotificationPanel() {
     }
 
 }
-
 
 // ==========================================
 // CLOSE WHEN CLICKING OUTSIDE
@@ -2435,7 +2690,6 @@ document.addEventListener(
                 "notificationBell"
             );
 
-
         if (
             !panel ||
             !bell
@@ -2445,11 +2699,15 @@ document.addEventListener(
 
         }
 
-
         if (
-            panel.style.display === "block" &&
-            !panel.contains(event.target) &&
-            !bell.contains(event.target)
+            panel.style.display ===
+                "block" &&
+            !panel.contains(
+                event.target
+            ) &&
+            !bell.contains(
+                event.target
+            )
         ) {
 
             closeNotificationPanel();
@@ -2459,12 +2717,13 @@ document.addEventListener(
     }
 );
 
-
 // ==========================================
 // ESCAPE NOTIFICATION HTML
 // ==========================================
 
-function escapeNotificationHTML(text) {
+function escapeNotificationHTML(
+    text
+) {
 
     const div =
         document.createElement(
@@ -2478,7 +2737,6 @@ function escapeNotificationHTML(text) {
 
 }
 
-
 // ==========================================
 // START NOTIFICATION SYSTEM
 // ==========================================
@@ -2489,7 +2747,6 @@ document.addEventListener(
 
         loadCustomerNotifications();
 
-
         setInterval(
             loadCustomerNotifications,
             60000
@@ -2497,3 +2754,460 @@ document.addEventListener(
 
     }
 );
+/* ==========================================
+   PLAYER ID GREEN TICK
+   ========================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const playerID = document.getElementById("playerID");
+    const validTick = document.getElementById("playerIDValid");
+
+    if (!playerID || !validTick) {
+        return;
+    }
+
+    playerID.addEventListener("input", function () {
+
+        this.value = this.value.replace(/[^0-9]/g, "").slice(0, 11);
+
+        if (this.value.length === 11) {
+
+            validTick.style.display = "block";
+            this.classList.add("player-id-valid-input");
+
+        } else {
+
+            validTick.style.display = "none";
+            this.classList.remove("player-id-valid-input");
+
+        }
+
+    });
+
+});
+
+/* ==========================================
+   LOAD ORDER HISTORY
+   ========================================== */
+
+async function loadOrderHistory() {
+
+    const list =
+        document.getElementById(
+            "orderHistoryList"
+        );
+
+    if (!list) {
+        return;
+    }
+
+    const playerIDElement =
+        document.getElementById(
+            "playerID"
+        );
+
+    const playerID =
+        playerIDElement
+            ? playerIDElement.value.trim()
+            : "";
+
+    if (!/^\d{11}$/.test(playerID)) {
+
+        list.innerHTML = `
+            <div class="notification-empty">
+                Enter your 11-digit Player ID to view your orders.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = `
+        <div class="notification-empty">
+            Loading order history...
+        </div>
+    `;
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/order-history/" +
+                encodeURIComponent(playerID)
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Could not load order history."
+            );
+
+        }
+
+        if (
+            !data.orders ||
+            data.orders.length === 0
+        ) {
+
+            list.innerHTML = `
+                <div class="notification-empty">
+                    No orders found for this Player ID.
+                </div>
+            `;
+
+            return;
+
+        }
+
+        list.innerHTML = "";
+
+        data.orders.forEach(
+            function(order) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "order-history-item";
+
+                const date =
+                    order.created_at
+                        ? new Date(
+                            order.created_at
+                        ).toLocaleString()
+                        : "Unknown date";
+
+                const status =
+                    order.status ||
+                    "Pending";
+
+                const paymentStatus =
+                    order.payment_status ||
+                    "Pending";
+
+                item.innerHTML = `
+
+                    <div class="order-history-top">
+
+                        <strong>
+                            #${order.id}
+                        </strong>
+
+                        <span>
+                            ${status}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        💎 ${escapeNotificationHTML(
+                            String(
+                                order.product || ""
+                            )
+                        )}
+                    </p>
+
+                    <p>
+                        🎮 Player ID:
+                        ${escapeNotificationHTML(
+                            String(
+                                order.player_id || ""
+                            )
+                        )}
+                    </p>
+
+                    <p>
+                        💰 ₦${Number(
+                            order.price || 0
+                        ).toLocaleString()}
+                    </p>
+
+                    <small>
+                        💳 ${escapeNotificationHTML(
+                            String(
+                                paymentStatus
+                            )
+                        )}
+                    </small>
+
+                    <small>
+                        📅 ${date}
+                    </small>
+
+                `;
+
+                list.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Order history error:",
+            error
+        );
+
+        list.innerHTML = `
+            <div class="notification-empty">
+                Unable to load order history.
+            </div>
+        `;
+
+    }
+
+}
+
+/* ==========================================
+   PLAYER ID HISTORY
+   ========================================== */
+
+(function () {
+
+    const STORAGE_KEY = "jomzPlayerIDHistory";
+    const MAX_IDS = 3;
+
+    function getPlayerIDHistory() {
+
+        try {
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem(STORAGE_KEY) || "[]"
+                );
+
+            return Array.isArray(saved)
+                ? saved
+                : [];
+
+        } catch (error) {
+
+            return [];
+
+        }
+
+    }
+
+    function savePlayerIDToHistory(playerID) {
+
+        if (!/^\d{11}$/.test(playerID)) {
+            return;
+        }
+
+        let history =
+            getPlayerIDHistory();
+
+        // Remove duplicate
+        history =
+            history.filter(
+                id => id !== playerID
+            );
+
+        // Add newest ID to the front
+        history.unshift(playerID);
+
+        // Keep only the latest 3
+        history =
+            history.slice(0, MAX_IDS);
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(history)
+        );
+
+    }
+
+    function displayPlayerIDHistory() {
+
+        const dropdown =
+            document.getElementById(
+                "playerIDHistoryDropdown"
+            );
+
+        if (!dropdown) {
+            return;
+        }
+
+        const history =
+            getPlayerIDHistory();
+
+        dropdown.innerHTML = "";
+
+        if (history.length === 0) {
+
+            dropdown.innerHTML = `
+                <div class="player-id-history-empty">
+                    No saved Player IDs
+                </div>
+            `;
+
+            return;
+        }
+
+        history.forEach(function (playerID) {
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+
+            button.className =
+                "player-id-history-item";
+
+            button.innerHTML = `
+                <span>🎮 ${playerID}</span>
+                <span>›</span>
+            `;
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const input =
+                        document.getElementById(
+                            "playerID"
+                        );
+
+                    if (input) {
+
+                        input.value =
+                            playerID;
+
+                        input.dispatchEvent(
+                            new Event(
+                                "input",
+                                {
+                                    bubbles: true
+                                }
+                            )
+                        );
+
+                    }
+
+                    dropdown.classList.remove(
+                        "show"
+                    );
+
+                    button.classList.remove(
+                        "open"
+                    );
+
+                }
+            );
+
+            dropdown.appendChild(
+                button
+            );
+
+        });
+
+    }
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const button =
+                document.getElementById(
+                    "playerIDHistoryButton"
+                );
+
+            const dropdown =
+                document.getElementById(
+                    "playerIDHistoryDropdown"
+                );
+
+            const input =
+                document.getElementById(
+                    "playerID"
+                );
+
+            if (
+                !button ||
+                !dropdown ||
+                !input
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    displayPlayerIDHistory();
+
+                    const isOpen =
+                        dropdown.classList.toggle(
+                            "show"
+                        );
+
+                    button.classList.toggle(
+                        "open",
+                        isOpen
+                    );
+
+                }
+            );
+
+            input.addEventListener(
+                "input",
+                function () {
+
+                    const value =
+                        input.value.trim();
+
+                    if (
+                        /^\d{11}$/.test(value)
+                    ) {
+
+                        savePlayerIDToHistory(
+                            value
+                        );
+
+                    }
+
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        !dropdown.contains(event.target) &&
+                        event.target !== button
+                    ) {
+
+                        dropdown.classList.remove(
+                            "show"
+                        );
+
+                        button.classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+})();

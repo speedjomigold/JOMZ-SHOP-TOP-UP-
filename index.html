@@ -274,8 +274,26 @@
     <div id="notificationList">
 
         <div class="notification-empty">
-
             No notifications yet.
+        </div>
+
+    </div>
+
+
+    <div
+        id="orderHistorySection"
+        class="order-history-section"
+    >
+
+        <h3>
+            📦 Order History
+        </h3>
+
+        <div id="orderHistoryList">
+
+            <div class="notification-empty">
+                Enter your Player ID to view your orders.
+            </div>
 
         </div>
 
@@ -347,7 +365,6 @@
 </section>
 
 
-‎‎  
 <!-- ==========================================
      TOP UP SECTION
      ========================================== -->
@@ -411,12 +428,11 @@
             </div>
 
 
-            <label
-                for="playerID"
-            >
+            <label for="playerID">
                 Free Fire Player ID
             </label>
 
+            <div class="player-id-field">
 
             <div class="input-wrapper">
 
@@ -427,9 +443,35 @@
                 <input
                     type="text"
                     id="playerID"
-                    placeholder="Enter your Player ID"
+                    placeholder="Enter your 11-digit Player ID"
                     autocomplete="off"
+                    inputmode="numeric"
+                    maxlength="11"
+                    pattern="[0-9]{11}"
                 >
+
+                <span
+                    id="playerIDValid"
+                    class="player-id-valid"
+                >
+                    ✓
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                id="playerIDHistoryButton"
+                class="player-id-history-button"
+                aria-label="Show saved Player IDs"
+            >
+                ⌄
+            </button>
+
+            <div
+                id="playerIDHistoryDropdown"
+                class="player-id-history-dropdown"
+            ></div>
 
             </div>
 
@@ -857,78 +899,78 @@
                     ✅ I HAVE MADE THE TRANSFER
                 </button>
                 
-                <!-- ==============================
-     WHATSAPP PAYMENT POPUP
-================================ -->
+                               <!-- ==============================
+                     WHATSAPP PAYMENT POPUP
+                     ============================== -->
 
-<div
-    id="whatsappPaymentPopup"
-    style="
-        display:none;
-        margin-top:18px;
-        padding:18px;
-        border-radius:14px;
-        background:#111;
-        border:1px solid #f58220;
-        text-align:center;
-    "
->
+                <div
+                    id="whatsappPaymentPopup"
+                    style="
+                        display:none;
+                        margin-top:18px;
+                        padding:18px;
+                        border-radius:14px;
+                        background:#111;
+                        border:1px solid #f58220;
+                        text-align:center;
+                    "
+                >
 
-    <div
-        style="
-            font-size:16px;
-            font-weight:bold;
-            margin-bottom:8px;
-        "
-    >
-        💬 Payment Made?
-    </div>
+                    <div
+                        style="
+                            font-size:16px;
+                            font-weight:bold;
+                            margin-bottom:8px;
+                        "
+                    >
+                        💬 Payment Made?
+                    </div>
 
-    <div
-        style="
-            font-size:14px;
-            opacity:.85;
-            margin-bottom:16px;
-        "
-    >
-        Notify JOMZ on WhatsApp for faster processing.
-    </div>
+                    <div
+                        style="
+                            font-size:14px;
+                            opacity:.85;
+                            margin-bottom:16px;
+                        "
+                    >
+                        Notify JOMZ on WhatsApp for faster processing.
+                    </div>
 
-    <button
-        id="notifyJomzButton"
-        type="button"
-        style="
-            width:100%;
-            padding:13px;
-            border:0;
-            border-radius:10px;
-            background:#25D366;
-            color:white;
-            font-weight:bold;
-            cursor:pointer;
-            margin-bottom:9px;
-        "
-    >
-        YES, NOTIFY JOMZ
-    </button>
+                    <button
+                        id="notifyJomzButton"
+                        type="button"
+                        style="
+                            width:100%;
+                            padding:13px;
+                            border:0;
+                            border-radius:10px;
+                            background:#25D366;
+                            color:white;
+                            font-weight:bold;
+                            cursor:pointer;
+                            margin-bottom:9px;
+                        "
+                    >
+                        YES, NOTIFY JOMZ
+                    </button>
 
-    <button
-        id="notNowButton"
-        type="button"
-        style="
-            width:100%;
-            padding:11px;
-            border:1px solid #555;
-            border-radius:10px;
-            background:transparent;
-            color:white;
-            cursor:pointer;
-        "
-    >
-        NOT NOW
-    </button>
+                    <button
+                        id="notNowButton"
+                        type="button"
+                        style="
+                            width:100%;
+                            padding:11px;
+                            border:1px solid #555;
+                            border-radius:10px;
+                            background:transparent;
+                            color:white;
+                            cursor:pointer;
+                        "
+                    >
+                        NOT NOW
+                    </button>
 
-</div>
+                </div>
 
 
                 <!-- EXISTING PENDING MESSAGE -->
@@ -942,18 +984,26 @@
                     We are checking your payment.
                 </p>
 
+
+                <!-- ==================================
+                     ORDER STATUS
+                     ================================== -->
+
+                <div
+                    id="orderStatus"
+                    style="display:none;"
+                ></div>
+
             </div>
-
-
-            <!-- ORDER STATUS IS CREATED BY SCRIPT.JS -->
 
         </div>
 
     </div>
 
 </section>
-    
-    <!-- ==========================================
+
+
+<!-- ==========================================
      HOW IT WORKS
      ========================================== -->
 
@@ -1270,10 +1320,9 @@
     </div>
 
 </section>
-
-
-<!-- ==========================================
-     CUSTOMER MESSAGE POPUP
+    
+    <!-- ==========================================
+     CUSTOMER PAYMENT MESSAGE POPUP
      ========================================== -->
 
 <div
@@ -1283,23 +1332,29 @@
 
     <div class="jomz-customer-message-box">
 
-        <div class="jomz-customer-message-icon">
-            📢
-        </div>
+        <div
+    id="jomzCustomerMessageIcon"
+    class="jomz-customer-message-icon"
+>
+    ℹ️
+</div>
 
-        <h2>
-            JOMZ SHOP
+
+        <h2 id="jomzCustomerMessageTitle">
+            PAYMENT NOT COMPLETED
         </h2>
 
+
         <p id="jomzCustomerMessageText">
-            You have a new message.
+            Your payment has not been completed.
         </p>
+
 
         <button
             type="button"
             onclick="closeCustomerMessagePopup()"
         >
-            OK
+            I UNDERSTAND
         </button>
 
     </div>

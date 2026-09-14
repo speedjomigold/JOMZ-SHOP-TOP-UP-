@@ -2282,3 +2282,366 @@ footer .copyright {
 
     letter-spacing: 3px;
 }
+
+/* ==========================================
+   PLAYER ID VALIDATION
+   ========================================== */
+
+.input-wrapper {
+    position: relative;
+}
+
+.player-id-valid {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    color: #22c55e;
+    font-size: 22px;
+    font-weight: 900;
+    pointer-events: none;
+}
+
+#playerID.player-id-valid-input {
+    padding-right: 45px;
+}
+
+
+/* ==========================================
+   ORDER HISTORY
+   ========================================== */
+
+.order-history-section {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.order-history-section h3 {
+    margin: 0 0 14px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.order-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.order-history-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.order-history-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.order-history-top strong {
+    font-size: 14px;
+}
+
+.order-history-top span {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+}
+
+.order-history-item p {
+    margin: 6px 0;
+    font-size: 13px;
+}
+
+.order-history-item small {
+    display: block;
+    margin-top: 7px;
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+
+/* ==========================================
+   PLAYER ID HISTORY DROPDOWN
+   ========================================== */
+
+.input-wrapper {
+    position: relative;
+}
+
+.player-id-history-button {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 22px;
+    font-weight: 800;
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-id-history-button:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.player-id-history-dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 6px);
+    display: none;
+    z-index: 1000;
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.player-id-history-dropdown.show {
+    display: block;
+}
+
+.player-id-history-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 12px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.player-id-history-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.player-id-history-item:active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.player-id-history-empty {
+    padding: 11px 12px;
+    font-size: 13px;
+    opacity: 0.65;
+}
+
+/* ==========================================
+   PLAYER ID HISTORY ARROW
+   ========================================== */
+
+.player-id-history-button {
+    right: 42px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+.player-id-history-button.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.player-id-history-button:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.player-id-history-button.open:active {
+    transform: translateY(-50%) rotate(180deg) scale(0.9);
+}
+
+/* Keep the green validation tick on the far right */
+.player-id-valid {
+    right: 10px;
+    z-index: 6;
+}
+
+/* ==========================================
+   PLAYER ID ARROW OUTSIDE INPUT
+   ========================================== */
+
+.player-id-history-button {
+    position: absolute;
+    right: -42px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.25s ease;
+}
+
+.player-id-history-button.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.player-id-history-button:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.player-id-history-button.open:active {
+    transform: translateY(-50%) rotate(180deg) scale(0.9);
+}
+
+/* Green tick closer to the Player ID text */
+.player-id-valid {
+    right: 12px;
+    z-index: 6;
+}
+
+/* Dropdown stays aligned with the Player ID box */
+.player-id-history-dropdown {
+    left: 0;
+    right: 0;
+}
+
+/* ==========================================
+   PLAYER ID FIELD — FINAL POSITIONING
+   ========================================== */
+
+.player-id-field {
+    position: relative;
+    width: 100%;
+}
+
+.player-id-field .input-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.player-id-history-button {
+    position: absolute;
+    right: -42px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 20;
+    transition: transform 0.25s ease;
+}
+
+.player-id-history-button.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.player-id-history-button:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.player-id-history-button.open:active {
+    transform: translateY(-50%) rotate(180deg) scale(0.9);
+}
+
+.player-id-history-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 1000;
+}
+
+.player-id-history-dropdown.show {
+    display: block;
+}
+
+.player-id-valid {
+    right: 12px;
+    z-index: 6;
+}
+
+/* ==========================================
+   PLAYER ID — SHORTER INPUT FOR ARROW
+   ========================================== */
+
+.player-id-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.player-id-field .input-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-id-history-button {
+    position: static;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    transform: none;
+    margin: 0;
+}
+
+.player-id-history-button.open {
+    transform: rotate(180deg);
+}
+
+.player-id-history-button:active {
+    transform: scale(0.9);
+}
+
+.player-id-history-button.open:active {
+    transform: rotate(180deg) scale(0.9);
+}
+
+.player-id-history-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 42px;
+}
